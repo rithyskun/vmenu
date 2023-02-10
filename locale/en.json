@@ -1,0 +1,22 @@
+{
+    "home": "Home",
+    "welcome": "Welcome Back",
+    "about": "About me",
+    "dashboard": "Dashboard",
+    "todo_app": "Todo Apps",
+    "what_needs_to_be_done": "What needs to be done?",
+    "add_search_todo": "Add/Search Todo",
+    "add_sale": "Add Sale",
+    "projects": "Projects",
+    "sale": "Sales",
+    "payment": "Payment",
+    "blog": "Blogs",
+    "article": "Articles",
+    "profile": "Profile",
+    "bookmark": "Bookmark",
+    "products": "Products",
+    "categories": "Categories",
+    "new": "New",
+    "edit": "Edit",
+    "delete": "Delete"
+}
