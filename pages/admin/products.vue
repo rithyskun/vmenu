@@ -77,6 +77,9 @@ onMounted(() => {
       </span>
     </div>
     <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="products" :per-page="15">
+      <template #[`item.category.categoryName`]="{ item }">
+        {{ item.category.categoryName }}
+      </template>
       <template #actions="{ item }">
         <button type="button" class="dark:text-white hover:bg-blue-200 h-8 w-8 hover:rounded-full" @click="editItem(item)">
           <Icon name="edit" class="h-5 w-5 text-blue-500" />

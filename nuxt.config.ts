@@ -48,4 +48,7 @@ export default defineNuxtConfig({
     cloudinayApiSecret: process.env.CLOUDINAY_API_SECRET,
   },
   ssr: true,
+  nitro: {
+    preset: 'netlify',
+  },
 })
