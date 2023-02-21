@@ -1,33 +1,43 @@
 <script setup lang="ts">
-import type { PropType } from "vue";
-import { IProduct } from '~~/types/types'
+import { useCategoriesStore } from '~~/stores/categories'
 
-const props = defineProps({
-    data: Array as PropType<IProduct[]>
+const no_image = '/no-image.png'
+const category = useCategoriesStore()
+
+const categories = computed(() => {
+  return category.categories
 })
-    
+onMounted(() => {
+  category.getCategories()
+})
 </script>
 
-
 <template>
-
-    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology
-                acquisitions 2021</h5>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-            acquisitions of 2021 so far, in reverse chronological order.</p>
-        <a href="#"
-            class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Read more
-            <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                    clip-rule="evenodd"></path>
-            </svg>
-        </a>
+  <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-5 lg:grid-cols-6">
+    <div v-for="(item, index) in categories" :key="index" class="group relative border-gray-200 transition-all">
+      <div
+        class="rouned-md hover:cursor-pointer dark:bg-gray-700 aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200 group-hover:opacity-75 lg:aspect-none"
+      >
+        <div>
+          <img :src="item.categoryImage || no_image" class="h-48 bg-gradient-to-r from-cyan-500 opacity-95 w-96 object-cover object-center" alt="">
+        </div>
+      </div>
+      <div class="mt-2 flex justify-between">
+        <div>
+          <h3 class="text-sm absolute text-white ml-2 bottom-10 line-clamp-2 w-44 dark:text-gray-200">
+            <a href="#">
+              <span aria-hidden="true" />
+              p-nameasdfdfd adsfa sdfasdfasdfasdfasdfasdfasdf {{ index }}
+            </a>
+          </h3>
+          <p class="text-sm text-gray-500">
+            disc {{ index }}
+          </p>
+        </div>
+        <p class="text-sm font-medium text-gray-900 dark:text-white">
+          price {{ index }}
+        </p>
+      </div>
     </div>
-
+  </div>
 </template>

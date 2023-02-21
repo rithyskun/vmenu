@@ -1,17 +1,16 @@
-import { defineStore, acceptHMRUpdate } from "pinia";
+import { acceptHMRUpdate, defineStore } from 'pinia'
 
-export const useSidebarStore = defineStore("sidebar", {
-    state: () => ({
-        sidebar: true,
-    }),
-    actions: {
-        toggleSidebar(state: boolean = false) {
-            this.sidebar = !this.sidebar;
-        },
+export const useSidebarStore = defineStore('sidebar', {
+  state: () => ({
+    sidebar: false,
+  }),
+  actions: {
+    toggleSidebar() {
+      this.sidebar = !this.sidebar
     },
-    getters: {},
-});
+  },
+  getters: {},
+})
 
-if (import.meta.hot) {
-    import.meta.hot.accept(acceptHMRUpdate(useSidebarStore, import.meta.hot));
-}
+if (import.meta.hot)
+  import.meta.hot.accept(acceptHMRUpdate(useSidebarStore, import.meta.hot))

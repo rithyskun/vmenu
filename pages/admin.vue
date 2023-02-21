@@ -1,24 +1,17 @@
-<template>
-    <div v-if="user">
-        <NuxtLayout name="page">
-            <div class="dark:bg-gray-900 dark:text-white">
-                <NuxtPage />
-            </div>
-        </NuxtLayout>
-    </div>
-</template>
-
 <script setup lang="ts">
+import { useUserStore } from '~/stores/auth'
 
-definePageMeta({
-    middleware: ['authorised']
-})
-
-const { initAuth, useAuthUser } = useAuth()
-const user = useAuthUser()
+const user = useUserStore()
 
 onBeforeMount(() => {
-    initAuth()
+  user.initAuth()
 })
-
 </script>
+
+<template>
+  <div v-if="user.auth_token">
+    <NuxtLayout name="page">
+      <NuxtPage />
+    </NuxtLayout>
+  </div>
+</template>

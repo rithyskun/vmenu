@@ -1,12 +1,19 @@
-export const mainNav = [
-    { name: 'Home', to: '/', icon: 'home', locale: 'home' },
+export const navbarList = [
+  { name: 'Home', to: '/', icon: 'home', locale: 'home' },
+  { name: 'QRCODE', to: '/admin/qrcode', icon: 'qrcode', locale: 'qrcode' },
+  { name: 'Products', to: '/admin/products', icon: 'product', locale: 'products' },
+  { name: 'Categories', to: '/admin/categories', icon: 'category', locale: 'categories' },
 ]
 
-export const minNav = [
-    { name: 'Home', to: '/', icon: 'home', locale: 'home' },
+export const mobileNavbarList = [
+  { name: 'Home', to: '/', icon: 'home', locale: 'home' },
+  { name: 'QRCODE', to: '/admin/qrcode', icon: 'qrcode', locale: 'qrcode' },
+  { name: 'Products', to: '/admin/products', icon: 'product', locale: 'products' },
+  { name: 'Categories', to: '/admin/categories', icon: 'category', locale: 'categories' },
 ]
 
-export const menu = [
-    { name: 'Products', to: '/admin/products', icon: 'home', locale: 'products' },
-    { name: 'Categories', to: '/admin/categories', icon: 'home', locale: 'categories' },
+export const sidebarList = [
+  { name: 'QRCODE', to: '/admin/qrcode', icon: 'qrcode', locale: 'qrcode' },
+  { name: 'Products', to: '/admin/products', icon: 'product', locale: 'products' },
+  { name: 'Categories', to: '/admin/categories', icon: 'category', locale: 'categories' },
 ]

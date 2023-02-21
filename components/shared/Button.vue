@@ -1,22 +1,16 @@
 <script setup lang="ts">
 defineProps({
-  id: {
-    type: String,
-  },
   label: {
     type: String,
+    required: false,
   },
-  disabled: {
-    type: Boolean,
-  },
-});
+})
 </script>
+
 <template>
   <button
-    :disabled="disabled"
-    :id="id"
-    type="button"
-    class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+    type="submit"
+    class="py-2.5 px-3 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-500 font-medium rounded-md text-sm py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 disabled:opacity-75 disabled:cursor-not-allowed"
   >
     {{ label }}
   </button>

@@ -45,15 +45,35 @@ model RefreshToken {
 
 model Category {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  category String
+  categoryName String @unique
+  categoryImage String?
+
+  product Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Product {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   productName   String   @unique
   productDescription    String?
-  productCategory String @db.ObjectId
-  productPrice  String
-  productImage String
-  isActive Boolean
+  salePrice  Float
+  productImage String?
+  status Boolean @default(true)
+
+  categoryId String @db.ObjectId
+  category Category? @relation(fields: [categoryId], references: [id])
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model MediaFile {
+  id String   @id @default(auto()) @map("_id") @db.ObjectId
+  url String
+  providerPublicId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

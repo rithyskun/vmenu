@@ -1,47 +1,43 @@
-import { sendError } from 'h3';
-import { getRefreshTokenByToken } from '~~/server/service/refreshToken.service';
-import { getUserById } from '~~/server/service/user.service';
+import { sendError } from 'h3'
+import { getRefreshTokenByToken } from '~~/server/service/refreshToken.service'
+import { getUserById } from '~~/server/service/user.service'
 import { decodeRefreshToken } from '~~/server/utils/jwt'
-import { IRefreshToken, IUser } from '~~/types/types';
+import type { IRefreshToken, IUser } from '~~/types/types'
 
-export default defineEventHandler( async (event) => {
+export default defineEventHandler(async (event) => {
+  const cookie = parseCookies(event)
+  const refreshToken = cookie.refresh_token
 
-    const cookie = parseCookies(event)
+  if (!refreshToken) {
+    return sendError(event, createError({
+      statusCode: 401,
+      statusMessage: 'The session expired!',
+    }))
+  }
 
-    const refreshToken = cookie.refresh_token
+  const rToken = await getRefreshTokenByToken(refreshToken)
 
-    if(!refreshToken) {
-        return sendError(event, createError({
-            statusCode: 401,
-            statusMessage: 'Refresh token is invalid'
-        }))
-    }
-
-    const rToken = await getRefreshTokenByToken(refreshToken)
-
-    if(!rToken) {
-        return sendError(event, createError({
-            statusCode: 401,
-            statusMessage: 'Refresh token is invalid'
-        }))
-    }
-    
+  if (!rToken) {
+    return sendError(event, createError({
+      statusCode: 401,
+      statusMessage: 'Refresh session invalid',
+    }))
+  }
+  try {
     const token = decodeRefreshToken(refreshToken) as IRefreshToken
-    
-    try {
-        const user = await getUserById(token.userId) as IUser
-        
-        const { accessToken } = generateTokens(user)
 
-        return {
-            access_token: accessToken
-        }
+    const user = await getUserById(token.userId) as IUser
 
-    } catch (error) {
-        return sendError(event, createError({
-            statusCode: 500,
-            statusMessage: 'Something went wrong'
-        }))
+    const { accessToken } = generateTokens(user)
+
+    return {
+      access_token: accessToken,
     }
-
+  }
+  catch (error) {
+    return sendError(event, createError({
+      statusCode: 500,
+      statusMessage: 'Something went wrong',
+    }))
+  }
 })

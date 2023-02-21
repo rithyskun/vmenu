@@ -1,53 +1,52 @@
-import { IUser } from '~~/types/types';
-import { generateTokens } from './../../utils/jwt';
-import bcrypt from 'bcrypt';
-import { sendError } from 'h3';
+import bcrypt from 'bcrypt'
+import { sendError } from 'h3'
+import { generateTokens } from './../../utils/jwt'
+import type { IUser } from '~~/types/types'
 import { getUserByEmail } from '~~/server/service/user.service'
 import { createRefreshToken } from '~~/server/service/refreshToken.service'
 import { userTransformer } from '~~/server/transformers/user'
 
-export default defineEventHandler( async (event) => {
-    
-    const body = await readBody(event)
+export default defineEventHandler(async (event) => {
+  const body = await readBody(event)
 
-    const { email, password } = body
+  const { email, password } = body
 
-    if(!email || !password) {
-        return sendError(event, createError({
-            statusCode: 400,
-            statusMessage: 'Invalid params'
-        }))
-    }
+  if (!email || !password) {
+    return sendError(event, createError({
+      statusCode: 400,
+      statusMessage: 'Invalid params',
+    }))
+  }
 
-    const user = await getUserByEmail(email) as IUser
-    
-    if(!user) {
-        return sendError(event, createError({
-            statusCode: 400,
-            statusMessage: 'Email or password is invalid'
-        })) 
-    }
+  const user = await getUserByEmail(email) as IUser
 
-    const passwordMatch = await bcrypt.compare(password, user.password)
+  if (!user) {
+    return sendError(event, createError({
+      statusCode: 400,
+      statusMessage: 'Email or password is invalid',
+    }))
+  }
 
-    if(!passwordMatch) {
-        return sendError(event, createError({
-            statusCode: 400,
-            statusMessage: 'Email or password is invalid'
-        }))
-    }
+  const passwordMatch = await bcrypt.compare(password, user.password)
 
-    const { accessToken, refreshToken } = generateTokens(user)
+  if (!passwordMatch) {
+    return sendError(event, createError({
+      statusCode: 400,
+      statusMessage: 'Email or password is invalid',
+    }))
+  }
 
-    await createRefreshToken({
-        token: refreshToken,
-        userId: user.id
-    })
+  const { accessToken, refreshToken } = generateTokens(user)
 
-    sendRefreshToken(event, refreshToken)
+  await createRefreshToken({
+    token: refreshToken,
+    userId: user.id,
+  })
 
-    return {
-        access_token: accessToken,
-        user: userTransformer(user)
-    }
+  sendRefreshToken(event, refreshToken)
+
+  return {
+    access_token: accessToken,
+    user: userTransformer(user),
+  }
 })

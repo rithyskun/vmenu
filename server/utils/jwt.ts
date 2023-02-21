@@ -1,56 +1,58 @@
 import jwt from 'jsonwebtoken'
-import { IUser } from '~~/types/types'
-import { H3Event } from 'h3'
+import type { H3Event } from 'h3'
+import type { IUser } from '~~/types/types'
 
 const generateAccessToken = (user: IUser) => {
-    const config = useRuntimeConfig()
+  const config = useRuntimeConfig()
 
-    return jwt.sign({
-        userId: user.id
-    }, config.jwtAccessToken, { expiresIn: '10m' })
+  return jwt.sign({
+    userId: user.id,
+  }, config.jwtAccessToken, { expiresIn: config.jwtExpiredIn })
 }
 
 const generateRefreshToken = (user: IUser) => {
-    const config = useRuntimeConfig()
+  const config = useRuntimeConfig()
 
-    return jwt.sign({
-        userId: user.id
-    }, config.jwtRefreshToken, { expiresIn: '4h' })
+  return jwt.sign({
+    userId: user.id,
+  }, config.jwtRefreshToken, { expiresIn: config.jwtRefreshExpiredIn })
 }
 
 export const decodeRefreshToken = (token: string) => {
-    const config = useRuntimeConfig()
+  const config = useRuntimeConfig()
 
-    try {
-        return jwt.verify(token, config.jwtRefreshToken)
-    } catch (error) {
-        return null
-    }
+  try {
+    return jwt.verify(token, config.jwtRefreshToken)
+  }
+  catch (error) {
+    return null
+  }
 }
 
 export const decodeAccessToken = (token: string) => {
-    const config = useRuntimeConfig()
+  const config = useRuntimeConfig()
 
-    try {
-        return jwt.verify(token, config.jwtAccessToken)
-    } catch (error) {
-        return null
-    }
+  try {
+    return jwt.verify(token, config.jwtAccessToken)
+  }
+  catch (error) {
+    return null
+  }
 }
 
 export const generateTokens = (user: IUser) => {
-    const accessToken = generateAccessToken(user)
-    const refreshToken = generateRefreshToken(user)
+  const accessToken = generateAccessToken(user)
+  const refreshToken = generateRefreshToken(user)
 
-    return {
-        accessToken: accessToken,
-        refreshToken: refreshToken
-    }
+  return {
+    accessToken,
+    refreshToken,
+  }
 }
 
 export const sendRefreshToken = (event: H3Event, token: string) => {
-    setCookie(event, 'refresh_token', token, {
-        httpOnly: true,
-        sameSite: true
-    })
+  setCookie(event, 'refresh_token', token, {
+    httpOnly: true,
+    sameSite: true,
+  })
 }

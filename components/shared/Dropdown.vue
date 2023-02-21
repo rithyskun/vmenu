@@ -1,4 +1,3 @@
 <template>
-    <div>Dropdown</div>
-  </template>
-  
+  <div>Dropdown</div>
+</template>

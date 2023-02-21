@@ -1,37 +1,34 @@
-import { IUser } from '~~/types/types';
-import { userTransformer } from '~~/server/transformers/user';
-import { registerValidation } from './../../schema/user.schema';
-import { createUser } from "~~/server/service/user.service"
-import { CreateUserModel } from "~~/server/schema/user.schema"
 import { sendError } from 'h3'
+import { registerValidation } from './../../schema/user.schema'
+import type { IUser } from '~~/types/types'
+import { userTransformer } from '~~/server/transformers/user'
+import { createUser } from '~~/server/service/user.service'
+import type { CreateUserModel } from '~~/server/schema/user.schema'
 
 export default defineEventHandler(async (event) => {
-    
-    const body = await readBody(event)
+  const body = await readBody(event)
 
-    registerValidation.parse(body)
-    
-    const { name, email, password, status, repeatPassword } = body
+  registerValidation.parse(body)
 
-    if (!name || !email || !password || !repeatPassword) {
-        return sendError(event, createError({ statusCode: 400, statusMessage: 'Invalid params' }))
-    }
+  const { name, email, password, status, repeatPassword } = body
 
-    if (password !== repeatPassword) {
-        return sendError(event, createError({ statusCode: 400, statusMessage: 'Passwords do not match' }))
-    }
+  if (!name || !email || !password || !repeatPassword)
+    return sendError(event, createError({ statusCode: 400, statusMessage: 'Invalid params' }))
 
-    const userData = {
-        name,
-        email,
-        password,
-        status,
-        profileImage: 'https://picsum.photos/200/200'
-    } as CreateUserModel['body']
+  if (password !== repeatPassword)
+    return sendError(event, createError({ statusCode: 400, statusMessage: 'Passwords do not match' }))
 
-    const user = await createUser(userData) as IUser
+  const userData = {
+    name,
+    email,
+    password,
+    status,
+    profileImage: 'https://picsum.photos/200/200',
+  } as CreateUserModel['body']
 
-    return {
-        data: userTransformer(user)
-    }
+  const user = await createUser(userData) as IUser
+
+  return {
+    data: userTransformer(user),
+  }
 })

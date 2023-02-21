@@ -1,36 +1,53 @@
 {
+  "name": "vmenu",
+  "version": "1.0.0",
   "private": true,
+  "author": "rithyskun <rithy.skun@outlook.com>",
+  "license": "MIT",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
-  },
-  "devDependencies": {
-    "@nuxt/types": "^2.15.8",
-    "@nuxtjs/color-mode": "^3.2.0",
-    "@nuxtjs/tailwindcss": "^6.3.1",
-    "@types/bcrypt": "^5.0.0",
-    "@types/jsonwebtoken": "^9.0.1",
-    "nuxt": "^3.1.1",
-    "typescript": "^4.9.5"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
     "@giscus/vue": "^2.2.6",
     "@nuxtjs/i18n": "^8.0.0-beta.9",
     "@pinia/nuxt": "^0.4.6",
-    "@prisma/client": "^4.10.0",
+    "@prisma/client": "^4.10.1",
     "@tailwindcss/forms": "^0.5.3",
     "@vueuse/nuxt": "^9.12.0",
     "bcrypt": "^5.1.0",
     "bson": "^5.0.0",
+    "cloudinary": "^1.34.0",
+    "formidable": "^2.1.1",
     "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^3.1.2",
     "nuxt-icon": "^0.2.10",
-    "prisma": "^4.10.0",
+    "prisma": "^4.10.1",
     "url-pattern": "^1.0.3",
     "zod": "^3.20.2"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.35.2",
+    "@nuxt/image-edge": "^1.0.0-27919678.2f5b64b",
+    "@nuxt/types": "^2.15.8",
+    "@nuxtjs/color-mode": "^3.2.0",
+    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@nuxtjs/tailwindcss": "^6.4.0",
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "@types/bcrypt": "^5.0.0",
+    "@types/bson": "^4.2.0",
+    "@types/formidable": "^2.0.5",
+    "@types/jsonwebtoken": "^9.0.1",
+    "eslint": "^8.34.0",
+    "eslint-plugin-nuxt": "^4.0.0",
+    "eslint-plugin-vue": "^9.9.0",
+    "nuxt": "^3.1.1",
+    "typescript": "^4.9.5"
   },
   "prisma": {
     "seed": "node prisma/seed.ts"

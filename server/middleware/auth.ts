@@ -1,40 +1,49 @@
-import { IRefreshToken } from '~~/types/types';
 import UrlPattern from 'url-pattern'
-import { decodeAccessToken } from '../utils/jwt'
 import { sendError } from 'h3'
+import { decodeAccessToken } from '../utils/jwt'
 import { getUserById } from '../service/user.service'
+import type { IRefreshToken } from '~~/types/types'
 
-export default defineEventHandler( async(event) => {
-    const endpoint = [
-        '/api/auth/user',
-        '/api/admin',
-    ]
+export default defineEventHandler(async (event) => {
+  const endpoint = [
+    '/api/auth/user',
+    '/api/admin',
+    '/api/upload',
+    '/api/category/create',
+    '/api/category/:id',
+    '/api/category/q',
+    '/api/product/create',
+    '/api/product/:id',
+    '/api/product/q',
+  ]
 
-    const isHandledByThisMiddleware = endpoint.some(endpoint => {
-        const pattern = new UrlPattern(endpoint)
-        return pattern.match(String(event.node.req.url))
-    })
+  const isHandledByThisMiddleware = endpoint.some((endpoint) => {
+    const pattern = new UrlPattern(endpoint)
+    return pattern.match(String(event.node.req.url))
+  })
 
-    if(!isHandledByThisMiddleware) return
+  if (!isHandledByThisMiddleware)
+    return
 
-    const token = event.node.req.headers['authorization']?.split(' ')[1] as string
+  const token = event.node.req.headers.authorization?.split(' ')[1] as string
 
-    const decoded = decodeAccessToken(token) as IRefreshToken
+  const decoded = decodeAccessToken(token) as IRefreshToken
 
-    if(!decoded) {
-        return sendError(event, createError({
-            statusCode: 401,
-            statusMessage: 'Unauthorized'
-        }))
-    }
+  if (!decoded) {
+    return sendError(event, createError({
+      statusCode: 401,
+      statusMessage: 'Unauthorized',
+    }))
+  }
 
-    try {
-        const userId = decoded.userId
+  try {
+    const userId = decoded.userId
 
-        const user = await getUserById(userId)
+    const user = await getUserById(userId)
 
-        event.context.auth = { user }
-    } catch (error) {
-        return
-    }
+    event.context.auth = { user }
+  }
+  catch (error) {
+
+  }
 })
