@@ -94,7 +94,7 @@ const rowClick = (item: string) => {
 
 <template>
   <div class="overflow-auto rounded-md-sm">
-    <table v-if="paginatedData.length" class="mx-auto w-full table-auto text-sm rounded-md">
+    <table v-if="paginatedData.length > 0" class="mx-auto w-full table-auto text-sm rounded-md">
       <thead>
         <tr
           class="border-b border-gray-600 bg-gray-100 text-center text-xs uppercase tracking-wide text-gray-700 dark:bg-gray-800 dark:text-white"
@@ -192,7 +192,7 @@ const rowClick = (item: string) => {
 <style scoped>
 th.active {
   color: rgb(41, 73, 215);
-  background-color: rgb(143, 144, 139)
+  background-color: rgb(230, 231, 226)
 }
 
 th.active .arrow {

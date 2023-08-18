@@ -9,5 +9,6 @@
     <div class="bg-white dark:bg-dim-900 h-screen mx-3">
       <slot />
     </div>
+    <Snackbar />
   </div>
 </template>

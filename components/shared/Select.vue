@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { PropType } from 'vue'
-
 interface TItem {
   id?: number
   name: string
@@ -22,7 +20,7 @@ defineProps({
     type: [String, Number, Object],
     default: 'Default',
   },
-  items: {
+  data: {
     type: Array as PropType<TItem[]>,
     required: true,
   },
@@ -55,13 +53,13 @@ const updateValue = (e: Event) => {
       {{ defaultValue }}
     </option>
     <option
-      v-for="(item, index) in items"
+      v-for="(item, index) in data"
       :key="index"
       :value="item.id"
       :selected="item.id === modelValue"
     >
-      <!-- <slot name="item" :item="item" /> -->
-      {{ item.name }}
+      <slot name="item" :item="item" />
+      <!-- {{ item.categoryName }} -->
     </option>
   </select>
 </template>

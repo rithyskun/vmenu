@@ -28,6 +28,15 @@ const payload = {
     status: z.boolean({
       required_error: 'Status is required',
     }),
+    feature: z.boolean({
+      required_error: 'Feature is required',
+    }),
+    favorite: z.boolean({
+      required_error: 'Favorite is required',
+    }),
+    promotion: z.boolean({
+      required_error: 'Promotion is required',
+    }),
   }),
 }
 
@@ -49,6 +58,15 @@ export const productValidation = z.object({
   }).optional(),
   status: z.boolean({
     required_error: 'Status is required',
+  }),
+  feature: z.boolean({
+    required_error: 'Feature is required',
+  }),
+  favorite: z.boolean({
+    required_error: 'Favorite is required',
+  }),
+  promotion: z.boolean({
+    required_error: 'Promotion is required',
   }),
 })
 

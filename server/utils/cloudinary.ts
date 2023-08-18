@@ -1,20 +1,20 @@
-import { v2 as _cloudinary } from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 
-const cloudinary = () => {
+const cloudinaryService = () => {
   const config = useRuntimeConfig()
 
-  _cloudinary.config({
+  cloudinary.config({
     cloud_name: config.cloudinayCloudName,
     api_key: config.cloudinayApiKey,
     api_secret: config.cloudinayApiSecret,
   })
 
-  return _cloudinary
+  return cloudinary
 }
 
 export const uploadToCloudinay = (image: any) => {
   return new Promise((resolve, reject) => {
-    cloudinary().uploader.upload(image, (error: any, data: any) => {
+    cloudinaryService().uploader.upload(image, (error: any, data: any) => {
       if (error)
         reject(error)
 

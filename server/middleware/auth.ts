@@ -6,6 +6,7 @@ import type { IRefreshToken } from '~~/types/types'
 
 export default defineEventHandler(async (event) => {
   const endpoint = [
+    '/api/auth/register',
     '/api/auth/user',
     '/api/admin',
     '/api/upload',

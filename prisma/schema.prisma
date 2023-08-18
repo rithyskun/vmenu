@@ -11,14 +11,14 @@ datasource db {
 }
 
 model User {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  name String?
-  email String @unique
-  password String
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  name         String?
+  email        String  @unique
+  password     String
   profileImage String?
-  status Boolean @default(true)
-  isAdmin   Boolean @default(false)
-  role Role @default(USER)
+  status       Boolean @default(true)
+  isAdmin      Boolean @default(false)
+  role         Role    @default(USER)
 
   // Refresh token
   refreshToken RefreshToken[]
@@ -44,8 +44,8 @@ model RefreshToken {
 }
 
 model Category {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  categoryName String @unique
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  categoryName  String  @unique
   categoryImage String?
 
   product Product[]
@@ -55,23 +55,26 @@ model Category {
 }
 
 model Product {
-  id      String   @id @default(auto()) @map("_id") @db.ObjectId
-  productName   String   @unique
-  productDescription    String?
-  salePrice  Float
-  productImage String?
-  status Boolean @default(true)
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  productName        String  @unique
+  productDescription String?
+  salePrice          Float
+  productImage       String?
+  status             Boolean @default(true)
+  feature            Boolean @default(false)
+  favorite           Boolean @default(false)
+  promotion          Boolean @default(false)
 
-  categoryId String @db.ObjectId
-  category Category? @relation(fields: [categoryId], references: [id])
- 
+  categoryId String    @db.ObjectId
+  category   Category? @relation(fields: [categoryId], references: [id])
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model MediaFile {
-  id String   @id @default(auto()) @map("_id") @db.ObjectId
-  url String
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  url              String
   providerPublicId String
 
   createdAt DateTime @default(now())

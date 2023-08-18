@@ -1,11 +1,11 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 
-interface State {
+export interface ISnackbar {
   text: string
   color: string
 }
 export const useSnackbarStore = defineStore('snackbar', {
-  state: (): State => {
+  state: (): ISnackbar => {
     return {
       text: '',
       color: '',
@@ -13,7 +13,7 @@ export const useSnackbarStore = defineStore('snackbar', {
   },
 
   actions: {
-    showSnackbar(payload: State) {
+    showSnackbar(payload: ISnackbar) {
       this.text = payload.text
       this.color = payload.color
     },

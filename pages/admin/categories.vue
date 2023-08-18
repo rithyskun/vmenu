@@ -110,18 +110,18 @@ const handleSubmit = async () => {
 }
 
 const confirmModal = ref<boolean>(false)
-const confirmDeleleteId = ref<string>('')
+const confirmDeleteId = ref<string>('')
 const confirmDeleteItem = ref<string>('')
 const showModalConfirm = async (item: any) => {
   confirmModal.value = true
-  confirmDeleleteId.value = item?.id
+  confirmDeleteId.value = item?.id
   confirmDeleteItem.value = item?.categoryName
 }
 
 const handleConfirmedDetele = async () => {
   loading.value = true
   try {
-    return await category.deleteCategory(confirmDeleleteId.value)
+    return await category.deleteCategory(confirmDeleteId.value)
   }
   catch (error: any) {
     return snackbar.showSnackbar({
@@ -131,7 +131,7 @@ const handleConfirmedDetele = async () => {
   }
   finally {
     loading.value = false
-    confirmDeleleteId.value = ''
+    confirmDeleteId.value = ''
     confirmModal.value = false
   }
 }
@@ -143,7 +143,10 @@ onMounted(() => {
 
 <template>
   <div>
-    <div class="space-y-5 dark:bg-dim-900 dark:text-white bg-white">
+    <div class="md:space-y-5 space-y-2 dark:bg-dim-900 dark:text-white bg-white">
+      <div class="text-xl italic font-bold block md:hidden">
+        {{ t('categories') }}
+      </div>
       <div class="mx-1 items-center flex justify-between">
         <div class="flex space-x-2 space-y-2">
           <SharedInput v-model="keyword" type="text" :placeholder="t('search')" class="w-64 lg:w-96" />
@@ -154,13 +157,13 @@ onMounted(() => {
         </span>
       </div>
 
-      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="categories" :per-page="15">
-        <template #categoryName="{ item }">
+      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="categories" :per-page="10">
+        <template #categoryName="{ item }: any">
           <div class="text-center w-32 md:w-full line-clamp-3 hover:line-clamp-6 flex flex-col items-center">
             {{ item.categoryName }}
           </div>
         </template>
-        <template #categoryImage="{ item }">
+        <template #categoryImage="{ item }: any">
           <div class="text-center flex flex-col items-center">
             <img :src="item.categoryImage || no_image" class="h-16 w-full object-contain object-center">
           </div>
@@ -169,7 +172,7 @@ onMounted(() => {
           <button type="button" class="dark:text-white hover:bg-blue-200 h-8 w-8 hover:rounded-full" @click="editItem(item)">
             <Icon name="edit" class="h-5 w-5 text-blue-500" />
           </button>
-          <button type="button" class="dark:text-white hover:bg-red-200 h-8 w-8 hover:rounded-full" @click="showModalConfirm(item)">
+          <button type="button" class="dark:text-white hov er:bg-red-200 h-8 w-8 hover:rounded-full" @click="showModalConfirm(item)">
             <Icon name="delete" class="h-5 w-5 text-red-500" />
           </button>
         </template>
@@ -208,8 +211,8 @@ onMounted(() => {
           <button class="text-red-400">
             <Icon name="alert" size="96" />
           </button>
-          <div class="text-md line-clamp-3 text-center items-center">
-            {{ t('are_you_sure_to_delete_this_item') }} <strong>'{{ confirmDeleteItem }}'</strong> ?
+          <div class="flex flex-col text-md line-clamp-3 text-center items-center">
+            {{ t('are_you_sure_to_delete_this_item') }} <strong>"{{ confirmDeleteItem }}" ?</strong>
           </div>
         </div>
       </template>

@@ -12,7 +12,7 @@ whenever(keys.escape, () => {
 </script>
 
 <template>
-  <div id="modal-backdrop" class="fixed inset-0 z-40 flex items-center justify-center bg-gray-700 bg-opacity-40">
+  <div id="modal-backdrop" class="fixed inset-0 z-40 flex items-center justify-center bg-gray-700 bg-opacity-75">
     <div
       id="modal"
       class="relative flex w-full mx-2 md:w-3/6 lg:w-2/6 h-3/5 lg:h-4/6 flex-col justify-between rounded-md bg-gray-50 dark:bg-gray-500 dark:text-white"
@@ -24,7 +24,7 @@ whenever(keys.escape, () => {
           </slot>
         </div>
         <button type="button" class="rounded-full h-8 w-8 dark:text-gray-700 bg-gray-200 hover:bg-gray-300" @click="close">
-          X
+          <Icon name="close" />
         </button>
       </header>
 

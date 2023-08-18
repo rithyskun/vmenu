@@ -20,7 +20,7 @@ const handleLogout = async () => {
 </script>
 
 <template>
-  <nav class="bg-white fixed sticky mx-auto border-gray-200 py-2.5 rounded-md dark:bg-dim-900">
+  <nav class="bg-white sticky mx-auto border-gray-200 py-2.5 rounded-md dark:bg-dim-900">
     <div class="flex flex-wrap items-center justify-between mx-3">
       <button :class="{ 'text-blue-500': sidebar.sidebar }" class="cursor-pointer hidden md:block dark:text-white" @click="sidebar.toggleSidebar">
         <Icon name="apps" />
@@ -34,7 +34,7 @@ const handleLogout = async () => {
         @click="isMobile = !isMobile"
       >
         <span class="sr-only">Open main menu</span>
-        <Icon name="menu" />
+        <Icon :name="!isMobile ? 'menu' : 'menuOpen'" />
       </button>
       <div id="navbar-sticky" class="hidden w-full md:block md:w-auto">
         <ul

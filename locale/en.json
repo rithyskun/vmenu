@@ -1,6 +1,6 @@
 {
   "home": "Home",
-  "welcome": "Welcome Back",
+  "welcome": "Welcome",
   "about": "About me",
   "dashboard": "Dashboard",
   "todo_app": "Todo Apps",
@@ -42,5 +42,7 @@
   "product_description": "Product Description",
   "sale_price": "Price",
   "product_image": "Product Image",
-  "status": "Status"
+  "status": "Status",
+  "active": "Active",
+  "inactive": "InActive"
 }

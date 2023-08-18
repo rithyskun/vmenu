@@ -6,14 +6,16 @@ export interface ICategory {
   categoryImage?: string
 }
 
-export interface Product {
-  id?: string
+export interface IProduct {
   productName: string
   productDescription?: string
   categoryId: string
   salePrice: number
   productImage?: string
-  status: Boolean
+  status: boolean
+  feature: boolean
+  favorite: boolean
+  promotion: boolean
   createdAt?: Date
   updatedAt?: Date
 }

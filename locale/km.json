@@ -42,5 +42,7 @@
   "product_description": "ការពិពណ៌នា",
   "sale_price": "តម្លៃ",
   "product_image": "រូបភាពផលិតផល",
-  "status": "ស្ថានភាព"
+  "status": "ស្ថានភាព",
+  "active": "សកម្ម",
+  "inactive": "មិនសកម្ម"
 }

@@ -8,7 +8,7 @@ defineProps({
     type: String,
   },
   modelValue: {
-    type: [String, Number, Boolean],
+    type: [String, Number],
   },
   type: {
     type: String,
@@ -34,7 +34,7 @@ const emit = defineEmits(['update:modelValue'])
     <label
       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
     >{{ label }}</label>
-    <input
+    <textarea
       :autocomplete="autocomplete"
       :value="modelValue"
       :disabled="disabled"
@@ -43,7 +43,7 @@ const emit = defineEmits(['update:modelValue'])
       :placeholder="placeholder"
       required
       @input="emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-    >
+    />
     <p v-if="validation" class="ml-2 text-sm text-red-600 dark:text-red-500">
       {{ validation }}
     </p>

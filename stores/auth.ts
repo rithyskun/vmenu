@@ -89,12 +89,18 @@ export const useUserStore = defineStore('auth', {
       }
     },
     async getUser() {
+      const router = useRouter()
+      const snackbar = useSnackbarStore()
       try {
         const data = await useFetchApi('/api/auth/user') as IResponseLogin
         this.setUser(data.user)
       }
-      catch (error) {
-        console.error(error)
+      catch (error: any) {
+        snackbar.showSnackbar({
+          text: error.statusMessage || error.message || error,
+          color: 'error',
+        })
+        router.push('/login')
       }
     },
     reRefreshToken() {

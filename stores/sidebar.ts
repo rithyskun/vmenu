@@ -1,7 +1,9 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-
+interface IState {
+  sidebar: boolean
+}
 export const useSidebarStore = defineStore('sidebar', {
-  state: () => ({
+  state: (): IState => ({
     sidebar: false,
   }),
   actions: {

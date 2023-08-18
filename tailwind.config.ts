@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 
+import type { Config } from 'tailwindcss'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
-module.exports = {
+export default <Config>{
   content: [
     './components/**/*.{js,vue,ts}',
     './layouts/**/*.vue',
@@ -13,10 +14,9 @@ module.exports = {
   ],
   theme: {
     screens: {
-      xs: '614px',
-      sm: '768px',
-      md: '1022px',
-      lg: '1092px',
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
       xl: '1280px',
     },
     extend: {
@@ -37,19 +37,6 @@ module.exports = {
           900: '#15202b',
         },
       },
-      animation: {
-        torch: 'torch 5s infinite',
-      },
-      keyframes: {
-        torch: {
-          from: {
-            backgroundPosition: '-100% 0',
-          },
-        },
-        to: {
-          backgroundPosition: '200% 0',
-        },
-      },
     },
   },
   darkMode: 'class',
@@ -63,13 +50,5 @@ module.exports = {
       variants: ['group-hover'],
     },
   ],
-  varients: {
-    extend: {
-      lineClamp: ['hover'],
-    },
-  },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/line-clamp'),
-  ],
+  plugins: [require('@tailwindcss/forms')],
 }
