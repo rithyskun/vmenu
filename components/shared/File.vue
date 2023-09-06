@@ -60,7 +60,7 @@ const handleImageChange = async (event: Event) => {
         <SharedSpinner />
       </div>
       <div v-else-if="props.imageSelected">
-        <img :src="props.imageSelected" class="w-56 h-56" alt="">
+        <NuxtImg :src="props.imageSelected" class="w-56 h-56" alt="CloudImg" />
       </div>
       <div v-else class="flex flex-col items-center justify-center pt-5 pb-6">
         <Icon name="upload" size="56" />

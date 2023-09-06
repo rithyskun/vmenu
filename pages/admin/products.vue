@@ -178,7 +178,7 @@ onMounted(() => {
         </template>
         <template #productImage="{ item }: any">
           <div class="text-center flex flex-col items-center">
-            <img :src="item.productImage || no_image" class="h-16 w-full object-contain object-center">
+            <NuxtImg :src="item.productImage || no_image" class="h-16 w-full object-contain object-center" />
           </div>
         </template>
         <template #status="{ item }: any">
