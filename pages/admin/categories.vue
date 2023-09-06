@@ -118,7 +118,7 @@ const showModalConfirm = async (item: any) => {
   confirmDeleteItem.value = item?.categoryName
 }
 
-const handleConfirmedDetele = async () => {
+const handleConfirmedDelete = async () => {
   loading.value = true
   try {
     return await category.deleteCategory(confirmDeleteId.value)
@@ -150,7 +150,7 @@ onMounted(() => {
       <div class="mx-1 items-center flex justify-between">
         <div class="flex space-x-2 space-y-2">
           <SharedInput v-model="keyword" type="text" :placeholder="t('search')" class="w-64 lg:w-96" />
-          <SharedButton :label="t('new')" class="w-24 md:24" @click="showModal" />
+          <SharedButton :label="t('new')" class="w-20 md:24" @click="showModal" />
         </div>
         <span class="text-xl italic font-bold hidden md:block">
           {{ t('categories') }}
@@ -218,7 +218,7 @@ onMounted(() => {
       </template>
 
       <template #footer>
-        <SharedButton :disabled="loading" :label="`${t('delete')}`" class="w-full" @click.prevent="handleConfirmedDetele" />
+        <SharedButton :disabled="loading" :label="`${t('delete')}`" class="w-full" @click.prevent="handleConfirmedDelete" />
       </template>
     </SharedModal>
   </div>
