@@ -5,7 +5,6 @@ import km from './locale/km.json'
 export default defineNuxtConfig({
   modules: [
     '@pinia/nuxt',
-    'nuxt-mongoose',
     '@nuxtjs/tailwindcss',
     '@vueuse/nuxt',
     '@nuxtjs/i18n',
@@ -13,11 +12,6 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@nuxt/image-edge',
   ],
-  mongoose: {
-    uri: process.env.MONGODB_URI,
-    options: {},
-    modelsDir: 'models',
-  },
   i18n: {
     vueI18n: {
       legacy: false,
