@@ -26,7 +26,7 @@ onMounted(() => {
         class="rounded-md hover:cursor-pointer dark:bg-gray-700 aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200 group-hover:opacity-75 lg:aspect-none"
       >
         <div>
-          <img :src="item.productImage || no_image" class="h-48 brightness-75 bg-gradient-to-r from-cyan-500 opacity-95 w-96 object-cover object-center" alt="">
+          <NuxtImg :src="item.productImage || no_image" class="h-48 brightness-75 bg-gradient-to-r from-cyan-500 opacity-95 w-96 object-cover object-center" alt="" />
         </div>
       </div>
       <div class="mt-2 flex justify-between">
