@@ -1,8 +1,8 @@
 {
   // Visuals
   "workbench.activityBar.visible": true,
-  "workbench.colorTheme": "Sapphire (Bright)",
-  "workbench.editor.tabCloseButton": "left",
+  "workbench.colorTheme": "Default Light+",
+  "workbench.editor.tabCloseButton": "right",
   "workbench.fontAliasing": "antialiased",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.list.smoothScrolling": true,
@@ -26,7 +26,7 @@
   "editor.suggestSelection": "first",
   "editor.tabSize": 2,
   "editor.unicodeHighlight.invisibleCharacters": false,
-  "editor.stickyScroll.enabled": true,
+  "editor.stickyScroll.enabled": false,
   "editor.hover.sticky": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": false,

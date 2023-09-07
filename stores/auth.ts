@@ -36,7 +36,7 @@ export const useUserStore = defineStore('auth', {
     async register({ name, email, password, repeatPassword }: IRegister) {
       const snackbar = useSnackbarStore()
       try {
-        const data = await $fetch('/api/auth/register', {
+        await $fetch('/api/auth/register', {
           method: 'POST',
           body: {
             name, email, password, repeatPassword,
@@ -46,7 +46,7 @@ export const useUserStore = defineStore('auth', {
           text: `The email '${email}' has been registered.`,
           color: 'success',
         })
-        return data
+        navigateTo('/')
       }
       catch (error: any) {
         snackbar.showSnackbar({
@@ -89,7 +89,6 @@ export const useUserStore = defineStore('auth', {
       }
     },
     async getUser() {
-      const router = useRouter()
       const snackbar = useSnackbarStore()
       try {
         const data = await useFetchApi('/api/auth/user') as IResponseLogin
@@ -100,7 +99,7 @@ export const useUserStore = defineStore('auth', {
           text: error.statusMessage || error.message || error,
           color: 'error',
         })
-        router.push('/login')
+        navigateTo('/login')
       }
     },
     reRefreshToken() {

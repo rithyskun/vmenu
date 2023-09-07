@@ -1,9 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 
 import type { Config } from 'tailwindcss'
-import defaultTheme from 'tailwindcss/defaultTheme'
 
-export default <Config>{
+export default <Partial<Config>>{
   content: [
     './components/**/*.{js,vue,ts}',
     './layouts/**/*.vue',
@@ -21,7 +20,7 @@ export default <Config>{
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', 'Noto Sans Khmer', ...defaultTheme.fontFamily.sans],
+        sans: ['Noto Sans Khmer', 'Inter', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         dim: {

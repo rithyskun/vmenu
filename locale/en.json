@@ -44,5 +44,6 @@
   "product_image": "Product Image",
   "status": "Status",
   "active": "Active",
-  "inactive": "InActive"
+  "inactive": "InActive",
+  "double_click_to_edit": "Double Click To Edit"
 }

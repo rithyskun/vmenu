@@ -1,8 +1,5 @@
 import UrlPattern from 'url-pattern'
-import { sendError } from 'h3'
-import { decodeAccessToken } from '../utils/jwt'
 import { getUserById } from '../service/user.service'
-import type { IRefreshToken } from '~~/types/types'
 
 export default defineEventHandler(async (event) => {
   const endpoint = [
@@ -17,6 +14,8 @@ export default defineEventHandler(async (event) => {
     '/api/product/:id',
     '/api/product/q',
   ]
+
+  const whiteList = ['/signup', '/login']
 
   const isHandledByThisMiddleware = endpoint.some((endpoint) => {
     const pattern = new UrlPattern(endpoint)
@@ -45,6 +44,6 @@ export default defineEventHandler(async (event) => {
     event.context.auth = { user }
   }
   catch (error) {
-
+    console.error(error)
   }
 })

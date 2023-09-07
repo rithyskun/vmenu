@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
     profileImage: 'https://picsum.photos/200/200',
   } as CreateUserModel['body']
 
-  const user = await createUser(userData) as IUser
+  const user: IUser = await createUser(userData)
 
   return {
     data: userTransformer(user),

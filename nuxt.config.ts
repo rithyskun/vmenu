@@ -11,6 +11,12 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@nuxtjs/color-mode',
     '@nuxt/image-edge',
+    ['@nuxtjs/google-fonts', {
+      families: {
+        'Inter': [100, 300, 400, 500],
+        'Noto Sans Khmer': [100, 300, 400, 500],
+      },
+    }],
   ],
   i18n: {
     vueI18n: {
@@ -29,7 +35,11 @@ export default defineNuxtConfig({
   tailwindcss: {
     cssPath: '~/assets/css/tailwind.css',
     configPath: 'tailwind.config',
-    exposeConfig: true,
+    exposeConfig: false,
+    exposeLevel: 2,
+    config: {},
+    injectPosition: 'first',
+    viewer: true,
   },
   postcss: {
     plugins: {

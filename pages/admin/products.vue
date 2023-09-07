@@ -3,6 +3,7 @@ import { useProductStore } from '~~/stores/products'
 import type { IProduct } from '~~/types/types'
 import { useSnackbarStore } from '~~/stores/snackbar'
 import { useCategoriesStore } from '~~/stores/categories'
+import { AppHelper } from '~~/server/utils/helper'
 
 const no_image = '/no-image.png'
 const product = useProductStore()
@@ -151,6 +152,10 @@ const handleConfirmedDelete = async () => {
   closeModal()
 }
 
+const doubleClickToEdit = (item: any) => {
+  editItem(item)
+}
+
 onMounted(() => {
   product.getProducts()
   category.getCategories()
@@ -172,7 +177,10 @@ onMounted(() => {
           {{ t('products') }}
         </span>
       </div>
-      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="products" :per-page="10">
+      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="products" :per-page="10" @rowDBClick="(item) => doubleClickToEdit(item)">
+        <template #salePrice="{ item }: any">
+          {{ AppHelper.formatCurrency(item.salePrice) }}
+        </template>
         <template #category="{ item }: any">
           {{ item.category.categoryName }}
         </template>
@@ -182,8 +190,8 @@ onMounted(() => {
           </div>
         </template>
         <template #status="{ item }: any">
-          <div class="rounded-md border mx-2 px-1 py-1" :class="item.status ? 'dark:bg-green-300 bg-green-500 text-white dark:text-gray-900' : 'dark:bg-red-300 bg-red-500 text-white dark:text-gray-900'">
-            {{ item.status ? 'Active' : 'InActive' }}
+          <div class="rounded-md border px-1 py-1" :class="item.status ? 'dark:bg-green-300 bg-green-500 text-white dark:text-gray-900' : 'dark:bg-red-300 bg-red-500 text-white dark:text-gray-900'">
+            {{ item.status ? t('active') : t('inactive') }}
           </div>
         </template>
         <template #actions="{ item }">
@@ -210,7 +218,7 @@ onMounted(() => {
 
             <label for="category" class="block text-sm font-medium text-gray-900 dark:text-white">{{ t('category') }}</label>
             <select id="category" v-model="editedItem.categoryId" class="bg-gray-50 border form-select border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option selected class="text-gray-600 bg-gray-200 cursor-not-allowed">
+              <option selected disabled class="text-gray-600 cursor-not-allowed bg-gray-100">
                 Choose a category
               </option>
               <option v-for="cat in categories" :key="cat.id" :value="cat.id">
