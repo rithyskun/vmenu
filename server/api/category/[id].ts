@@ -1,17 +1,17 @@
+import type { H3Event } from 'h3'
 import { deleteCategory, getOneCategory, updateCategory } from '~~/server/service/category.service'
 
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async (event: H3Event) => {
   const body = await readBody(event)
-  const id = event.context.params.id
+  const params = getRouterParams(event)
+  const method = getMethod(event)
 
-  // const { categoryName, categoryImage } = body
+  if (method === 'PUT')
+    return await updateCategory(params.id, body)
 
-  if (event.node.req.method === 'PUT')
-    return await updateCategory(id, body)
+  if (method === 'DELETE')
+    return await deleteCategory(params.id)
 
-  if (event.node.req.method === 'DELETE')
-    return await deleteCategory(id)
-
-  if (event.node.req.method === 'GET')
-    return await getOneCategory(id)
+  if (method === 'GET')
+    return await getOneCategory(params.id)
 })

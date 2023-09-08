@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useSnackbarStore } from '~/stores/snackbar'
 interface Upload {
   url?: string
-  secure_url: string
+  secure_url?: string
 }
 
 const props = defineProps({
@@ -11,8 +10,6 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['selectedFile'])
-
-const snackbar = useSnackbarStore()
 
 const loading = ref<boolean>(false)
 const file = ref()
@@ -36,10 +33,11 @@ const handleImageChange = async (event: Event) => {
       method: 'POST',
       body: formData.value,
     }) as Upload
-    emit('selectedFile', upload.secure_url)
+    emit('selectedFile', upload?.secure_url)
   }
   catch (error: any) {
-    return snackbar.showSnackbar({
+    useSnackbar({
+      show: true,
       text: error.statusMessage || error.message || error,
       color: 'error',
     })

@@ -17,10 +17,6 @@ defineProps({
   disabled: {
     type: Boolean,
   },
-  autocomplete: {
-    type: String,
-    default: 'none',
-  },
   validation: {
     type: String,
   },
@@ -35,7 +31,7 @@ const emit = defineEmits(['update:modelValue'])
       class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
     >{{ label }}</label>
     <input
-      :autocomplete="autocomplete"
+      :id="label"
       :value="modelValue"
       :disabled="disabled"
       :type="type"

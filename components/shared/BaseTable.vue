@@ -1,4 +1,13 @@
 <script setup lang="ts">
+const props = withDefaults(defineProps<Props>(), {
+  columns: () => [],
+  rows: () => [],
+  perPage: 1,
+  filterKey: '',
+})
+
+const emit = defineEmits(['rowClick', 'rowDBClick'])
+
 export interface colDef {
   id: string
   text: string
@@ -11,15 +20,6 @@ interface Props {
   perPage?: number
   filterKey?: string
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  columns: () => [],
-  rows: () => [],
-  perPage: 1,
-  filterKey: '',
-})
-
-const emit = defineEmits(['rowClick', 'rowDBClick'])
 
 const { t } = useI18n()
 
@@ -73,7 +73,7 @@ const paginatedData = computed(() => {
   if (String(perPages.value) === 'ALL')
     return filteredData.value
   else
-    return filteredData.value.slice((page.value - 1) * perPages.value, page.value * perPages.value)
+    return filteredData?.value.slice((page.value - 1) * perPages.value, page.value * perPages.value)
 })
 
 // Sort by
@@ -89,6 +89,11 @@ const capitalize = (str: string) => {
 // row click
 const rowClick = (item: string) => {
   emit('rowClick', item)
+}
+
+// row double click
+const rowDBClick = (item: string) => {
+  emit('rowDBClick', item)
 }
 </script>
 
@@ -116,8 +121,9 @@ const rowClick = (item: string) => {
       <tbody>
         <tr
           v-for="(entry, index) in paginatedData" :key="index"
-          class="text-gray-800 h-10 hover:bg-gray-200 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500"
+          class="text-gray-800 relative group h-10 hover:bg-gray-200 hover:cursor-pointer dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500"
           @click.prevent="rowClick(entry)"
+          @dblclick.prevent="rowDBClick(entry)"
         >
           <slot name="item">
             <td v-for="key in columns" :key="key.id" class="border text-center">
@@ -128,6 +134,9 @@ const rowClick = (item: string) => {
                 </span>
               </slot>
             </td>
+            <div class="opacity-0 text-xs group-hover:opacity-100 duration-300 absolute left-0 bottom-0 z-10 flex justify-center font-mono items-end bg-gray-200 text-blue-500 italic">
+              {{ t('double_click_to_edit') }}
+            </div>
           </slot>
         </tr>
       </tbody>

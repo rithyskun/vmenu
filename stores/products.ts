@@ -1,6 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { useSnackbarStore } from './snackbar'
-import type { IProduct } from '~~/types/types'
+import type { IProduct } from './../types/types'
 
 export const useProductStore = defineStore('product', {
   state: () => ({
@@ -8,33 +7,38 @@ export const useProductStore = defineStore('product', {
   }),
   actions: {
     async getProducts() {
-      const snackbar = useSnackbarStore()
       try {
+        useProgressBar(true)
         const data = await useFetchApi('/api/product') as IProduct[]
         return this.products = data
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage,
           color: 'error',
         })
       }
+      finally {
+        useProgressBar(false)
+      }
     },
     async createProduct(product: IProduct) {
-      const snackbar = useSnackbarStore()
       try {
         await useFetchApi('/api/product/create', {
           method: 'POST',
           body: JSON.stringify(product),
         })
-        snackbar.showSnackbar({
-          text: `The ${product.productName} name has been create`,
+        useSnackbar({
+          show: true,
+          text: `The product <b>${product.productName}</b> name has been created`,
           color: 'success',
         })
         this.getProducts()
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage,
           color: 'error',
         })
@@ -43,7 +47,6 @@ export const useProductStore = defineStore('product', {
 
     async updateProduct(id: string, { ...payload }: IProduct) {
       const { productName, salePrice, productDescription, categoryId, promotion, productImage, favorite, feature, status } = payload
-      const snackbar = useSnackbarStore()
       try {
         await useFetchApi(`/api/product/${id}`, {
           method: 'PUT',
@@ -59,14 +62,16 @@ export const useProductStore = defineStore('product', {
             status,
           },
         })
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: `The product name: <strong> ${payload.productName}</strong> has been updated`,
           color: 'success',
         })
         this.getProducts()
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage,
           color: 'error',
         })
@@ -74,19 +79,20 @@ export const useProductStore = defineStore('product', {
     },
 
     async deleteProduct(id: string) {
-      const snackbar = useSnackbarStore()
       try {
         await useFetchApi(`/api/product/${id}`, {
           method: 'DELETE',
         })
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: 'Done',
           color: 'success',
         })
         this.getProducts()
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage,
           color: 'error',
         })

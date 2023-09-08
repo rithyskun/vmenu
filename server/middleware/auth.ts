@@ -1,9 +1,6 @@
 import UrlPattern from 'url-pattern'
-import { sendError } from 'h3'
-import { decodeAccessToken } from '../utils/jwt'
 import { getUserById } from '../service/user.service'
-import type { IRefreshToken } from '~~/types/types'
-
+import type { IRefreshToken } from '~/types/types'
 export default defineEventHandler(async (event) => {
   const endpoint = [
     '/api/auth/register',
@@ -45,6 +42,6 @@ export default defineEventHandler(async (event) => {
     event.context.auth = { user }
   }
   catch (error) {
-
+    console.error(error)
   }
 })

@@ -26,13 +26,11 @@ const handleRegister = async () => {
       email: user.email,
       password: user.password,
     })
+    navigateTo('/admin/products')
+    user.loading = false
   }
   catch (error) {
     console.error(error)
-  }
-  finally {
-    navigateTo('/admin/products')
-    user.loading = false
   }
 }
 </script>
