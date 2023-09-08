@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { useCategoriesStore } from '~~/stores/categories'
 import type { Category } from '~~/types/types'
-import { useSnackbarStore } from '~~/stores/snackbar'
 
 const no_image = '/no-image.png'
-const snackbar = useSnackbarStore()
 const category = useCategoriesStore()
 
 const { t } = useI18n()
@@ -64,7 +62,8 @@ const editItem = (item: any) => {
 const handleSubmit = async () => {
   loading.value = true
   if (!editedItem.value.categoryName) {
-    snackbar.showSnackbar({
+    useSnackbar({
+      show: true,
       text: 'Category name is required',
       color: 'error',
     })
@@ -79,7 +78,8 @@ const handleSubmit = async () => {
       })
     }
     catch (error: any) {
-      return snackbar.showSnackbar({
+      useSnackbar({
+        show: true,
         text: error.statusMessage || error.message || error,
         color: 'error',
       })
@@ -97,7 +97,8 @@ const handleSubmit = async () => {
       })
     }
     catch (error: any) {
-      return snackbar.showSnackbar({
+      useSnackbar({
+        show: true,
         text: error.statusMessage || error.message || error,
         color: 'error',
       })
@@ -124,7 +125,8 @@ const handleConfirmedDelete = async () => {
     return await category.deleteCategory(confirmDeleteId.value)
   }
   catch (error: any) {
-    return snackbar.showSnackbar({
+    useSnackbar({
+      show: true,
       text: error.statusMessage || error.message || error,
       color: 'error',
     })
@@ -134,6 +136,10 @@ const handleConfirmedDelete = async () => {
     confirmDeleteId.value = ''
     confirmModal.value = false
   }
+}
+
+const doubleClickToEdit = (item: any) => {
+  editItem(item)
 }
 
 onMounted(() => {
@@ -157,7 +163,7 @@ onMounted(() => {
         </span>
       </div>
 
-      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="categories" :per-page="10">
+      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="categories" :per-page="10" @row-d-b-click="(item) => doubleClickToEdit(item)">
         <template #categoryName="{ item }: any">
           <div class="text-center w-32 md:w-full line-clamp-3 hover:line-clamp-6 flex flex-col items-center">
             {{ item.categoryName }}
@@ -186,7 +192,7 @@ onMounted(() => {
       </template>
 
       <template #body>
-        <form @submit.prevent="handleSubmit">
+        <form id="category" name="category" @submit.prevent="handleSubmit">
           <div class="space-y-5">
             <SharedInput v-model="editedItem.categoryName" type="text" :label="t('category_name')" />
             <SharedFile :image-selected="selectedImage" @selected-file="(file) => (selectedImage = file)" />

@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { useProductStore } from '~~/stores/products'
 import type { IProduct } from '~~/types/types'
-import { useSnackbarStore } from '~~/stores/snackbar'
 import { useCategoriesStore } from '~~/stores/categories'
 import { AppHelper } from '~~/server/utils/helper'
 
 const no_image = '/no-image.png'
 const product = useProductStore()
 const { t } = useI18n()
-const snackbar = useSnackbarStore()
 const category = useCategoriesStore()
 
 const products = computed(() => {
@@ -65,10 +63,10 @@ const closeModal = () => {
   nextTick(() => {
     editedItem.value = Object.assign({}, defaultItem.value)
     editIndex.value = -1
+    modal.value = false
+    confirmModal.value = false
+    selectedImage.value = ''
   })
-  modal.value = false
-  confirmModal.value = false
-  selectedImage.value = ''
 }
 
 const formTitle = computed(() => {
@@ -95,12 +93,17 @@ const showModalConfirm = async (item: any) => {
 const loading = ref<boolean>(false)
 const handleSubmit = async () => {
   loading.value = true
+
+  useProgressBar(true)
   if (!editedItem.value.productName || !editedItem.value.categoryId || !editedItem.value.salePrice) {
-    snackbar.showSnackbar({
+    useSnackbar({
+      show: true,
       text: 'INVALID.USER.INPUT',
       color: 'error',
     })
-    return loading.value = false
+    loading.value = false
+    useProgressBar(false)
+    return
   }
 
   if (editIndex.value > -1) {
@@ -111,7 +114,8 @@ const handleSubmit = async () => {
       )
     }
     catch (error: any) {
-      return snackbar.showSnackbar({
+      useSnackbar({
+        show: true,
         text: error.statusMessage || error.message || error,
         color: 'error',
       })
@@ -119,6 +123,7 @@ const handleSubmit = async () => {
     finally {
       loading.value = false
       closeModal()
+      useProgressBar(true)
     }
   }
   else {
@@ -130,7 +135,8 @@ const handleSubmit = async () => {
       closeModal()
     }
     catch (error: any) {
-      return snackbar.showSnackbar({
+      useSnackbar({
+        show: true,
         text: error.statusMessage || error.message || error,
         color: 'error',
       })
@@ -147,9 +153,11 @@ const categories = computed(() => {
 })
 
 const handleConfirmedDelete = async () => {
+  useProgressBar(true)
   await product.deleteProduct(confirmDeletedId.value)
   confirmModal.value = false
   closeModal()
+  useProgressBar(false)
 }
 
 const doubleClickToEdit = (item: any) => {
@@ -177,7 +185,7 @@ onMounted(() => {
           {{ t('products') }}
         </span>
       </div>
-      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="products" :per-page="10" @rowDBClick="(item) => doubleClickToEdit(item)">
+      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="products" :per-page="10" @row-d-b-click="(item) => doubleClickToEdit(item)">
         <template #salePrice="{ item }: any">
           {{ AppHelper.formatCurrency(item.salePrice) }}
         </template>
@@ -211,17 +219,17 @@ onMounted(() => {
       </template>
 
       <template #body>
-        <form @submit.prevent="handleSubmit">
+        <form id="product" name="product" @submit.prevent="handleSubmit">
           <div class="space-y-5">
             <SharedInput v-model="editedItem.productName" type="text" :label="t('product_name')" />
             <SharedTextarea v-model="editedItem.productDescription" type="text" :label="t('product_description')" />
 
-            <label for="category" class="block text-sm font-medium text-gray-900 dark:text-white">{{ t('category') }}</label>
-            <select id="category" v-model="editedItem.categoryId" class="bg-gray-50 border form-select border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <label for="category-1" class="block text-sm font-medium text-gray-900 dark:text-white">{{ t('category') }}</label>
+            <select id="category-1" v-model="editedItem.categoryId" class="bg-gray-50 border form-select border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option selected disabled class="text-gray-600 cursor-not-allowed bg-gray-100">
                 Choose a category
               </option>
-              <option v-for="cat in categories" :key="cat.id" :value="cat.id">
+              <option v-for="(cat, index) in categories" :key="index" :value="cat.id">
                 {{ cat.categoryName }}
               </option>
             </select>
@@ -229,8 +237,8 @@ onMounted(() => {
             <div class="flex justify-around">
               <div class="flex justify-between flex-col">
                 <div class="flex items-center mb-5">
-                  <input id="checkbox" v-model="editedItem.status" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                  <label for="checkbox" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.status ? `${t('status')}: ${t('active')}` : `${t('status')}: ${t('inactive')}` }}</label>
+                  <input id="checkbox-status" v-model="editedItem.status" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                  <label for="checkbox-status" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.status ? `${t('status')}: ${t('active')}` : `${t('status')}: ${t('inactive')}` }}</label>
                 </div>
                 <div class="flex items-center">
                   <input id="checkbox-feature" v-model="editedItem.feature" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -254,8 +262,8 @@ onMounted(() => {
       </template>
 
       <template #footer>
-        <SharedButton v-if="editIndex > -1" :disabled="loading" :label="t('update')" class="w-full" @click.prevent="handleSubmit" />
-        <SharedButton v-else :disabled="loading" :label="t('save')" class="w-full" @click.prevent="handleSubmit" />
+        <SharedButtonCustom v-if="editIndex > -1" :disabled="loading" :label="t('update')" class="w-full" @click.prevent="handleSubmit" />
+        <SharedButtonCustom v-else :disabled="loading" :label="t('save')" class="w-full" @click.prevent="handleSubmit" />
       </template>
     </SharedModal>
 
@@ -271,13 +279,13 @@ onMounted(() => {
             <Icon name="alert" size="96" />
           </button>
           <div class="flex flex-col text-md line-clamp-3 text-center items-center">
-            {{ t('are_you_sure_to_delete_this_item') }} <strong>"{{ confirmDeleteItem }}" ?</strong>
+            {{ t('are_you_sure_to_delete_this_item') }} <strong> "{{ confirmDeleteItem }}" ?</strong>
           </div>
         </div>
       </template>
 
       <template #footer>
-        <SharedButton :disabled="loading" :label="`${t('delete')}`" class="w-full" @click.prevent="handleConfirmedDelete" />
+        <SharedButtonCustom :disabled="loading" :label="`${t('delete')}`" class="w-full" @click.prevent="handleConfirmedDelete" />
       </template>
     </SharedModal>
   </div>

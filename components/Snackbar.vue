@@ -1,29 +1,16 @@
 <script setup lang="ts">
-import { useSnackbarStore } from '~~/stores/snackbar'
-
-const snackbar = useSnackbarStore()
-
-const show = ref<boolean>(false)
-const text = ref<string>('')
-const color = ref<string>('')
-
-snackbar.$subscribe((mutation, state) => {
-  if (mutation.type) {
-    text.value = state.text
-    color.value = state.color
-    show.value = true
-  }
-})
+const show = useShow()
+const text = useText()
+const color = useColor()
 
 const reset = () => {
+  show.value = false
   text.value = ''
   color.value = ''
-  snackbar.resetSnackbar()
 }
 
 const onTimeOut = () => {
   setTimeout(() => {
-    show.value = false
     reset()
   }, 3000)
 }
@@ -36,7 +23,7 @@ watch(show, () => {
 <template>
   <div class="items-center relative">
     <div
-      v-if="show && color === 'success'" id="toast-success"
+      v-if="show === true && color === 'success'" id="toast-success"
       class="bottom-5 z-40 fixed text-center md:right-5 lg:right-5 mb-4 flex w-full max-w-md items-center justify-center rounded-lg bg-white p-4 text-gray-500 shadow dark:bg-gray-700 dark:text-gray-400"
       role="alert"
     >

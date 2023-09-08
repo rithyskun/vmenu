@@ -2,7 +2,6 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { JwtPayload } from 'jwt-decode'
 import jwt_decode from 'jwt-decode'
 import type { ILogin, IRegister, IResponseLogin } from './../types/types'
-import { useSnackbarStore } from './snackbar'
 
 type jwtToken = JwtPayload & {
   name: string
@@ -34,7 +33,6 @@ export const useUserStore = defineStore('auth', {
       this.auth_loading = value
     },
     async register({ name, email, password, repeatPassword }: IRegister) {
-      const snackbar = useSnackbarStore()
       try {
         await $fetch('/api/auth/register', {
           method: 'POST',
@@ -42,60 +40,63 @@ export const useUserStore = defineStore('auth', {
             name, email, password, repeatPassword,
           },
         })
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: `The email '${email}' has been registered.`,
           color: 'success',
         })
         navigateTo('/')
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage || error.message || error,
           color: 'error',
         })
       }
     },
     async login({ email, password }: ILogin) {
-      const snackbar = useSnackbarStore()
       try {
-        const data: IResponseLogin = await $fetch('/api/auth/login', {
+        const { access_token, user } = await $fetch('/api/auth/login', {
           method: 'POST',
           body: {
             email, password,
           },
         })
-        this.setToken(data.access_token)
-        this.setUser(data.user)
+
+        this.setToken(access_token)
+        this.setUser(user)
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage || error.message || error,
           color: 'error',
         })
       }
     },
     async refreshToken() {
-      const snackbar = useSnackbarStore()
       try {
-        const data: IResponseLogin = await $fetch('/api/auth/refresh')
+        const { access_token } = await $fetch('/api/auth/refresh')
 
-        this.setToken(data.access_token)
+        this.setToken(access_token)
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage || error.message || error,
           color: 'error',
         })
       }
     },
     async getUser() {
-      const snackbar = useSnackbarStore()
       try {
         const data = await useFetchApi('/api/auth/user') as IResponseLogin
         this.setUser(data.user)
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage || error.message || error,
           color: 'error',
         })
@@ -112,7 +113,6 @@ export const useUserStore = defineStore('auth', {
 
       setTimeout(async () => {
         await this.refreshToken()
-        this.refreshToken()
       }, newRefreshTime)
     },
     async initAuth() {

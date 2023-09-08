@@ -1,14 +1,12 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { useSnackbarStore } from './snackbar'
-import type { Category } from '~~/types/types'
+import type { Category, ICategory } from '~~/types/types'
 
 export const useCategoriesStore = defineStore('category', {
   state: () => ({
-    categories: [] as Category[],
+    categories: [] as ICategory[],
   }),
   actions: {
     async createCategory({ categoryName, categoryImage }: Category) {
-      const snackbar = useSnackbarStore()
       try {
         await useFetchApi('/api/category/create', {
           method: 'POST',
@@ -16,14 +14,16 @@ export const useCategoriesStore = defineStore('category', {
             categoryName, categoryImage,
           },
         })
-        snackbar.showSnackbar({
-          text: `The ${categoryName} category has been created`,
+        useSnackbar({
+          show: true,
+          text: `The category <b>${categoryName}</b> has been created`,
           color: 'success',
         })
         this.getCategories()
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage || error.message || error,
           color: 'error',
         })
@@ -31,7 +31,6 @@ export const useCategoriesStore = defineStore('category', {
     },
 
     async updateCategory(id: string, { categoryName, categoryImage }: Category) {
-      const snackbar = useSnackbarStore()
       try {
         await useFetchApi(`/api/category/${id}`, {
           method: 'PUT',
@@ -40,14 +39,16 @@ export const useCategoriesStore = defineStore('category', {
             categoryImage,
           },
         })
-        snackbar.showSnackbar({
-          text: `The ${categoryName} category has been updated`,
+        useSnackbar({
+          show: true,
+          text: `The category <b>${categoryName}</b> has been updated`,
           color: 'success',
         })
         this.getCategories()
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage,
           color: 'error',
         })
@@ -55,19 +56,20 @@ export const useCategoriesStore = defineStore('category', {
     },
 
     async deleteCategory(id: string) {
-      const snackbar = useSnackbarStore()
       try {
         await useFetchApi(`/api/category/${id}`, {
           method: 'DELETE',
         })
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: 'Done',
           color: 'success',
         })
         this.getCategories()
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage,
           color: 'error',
         })
@@ -75,16 +77,20 @@ export const useCategoriesStore = defineStore('category', {
     },
 
     async getCategories() {
-      const snackbar = useSnackbarStore()
       try {
-        const data = await useFetchApi('/api/category') as Category[]
-        this.categories = data
+        useProgressBar(true)
+        const data = await useFetchApi('/api/category') as ICategory[]
+        return this.categories = data
       }
       catch (error: any) {
-        snackbar.showSnackbar({
+        useSnackbar({
+          show: true,
           text: error.statusMessage,
           color: 'error',
         })
+      }
+      finally {
+        useProgressBar(false)
       }
     },
 

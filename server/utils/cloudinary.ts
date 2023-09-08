@@ -17,7 +17,6 @@ export const uploadToCloudinay = (image: any) => {
     cloudinaryService().uploader.upload(image, (error: any, data: any) => {
       if (error)
         reject(error)
-
       resolve(data)
     })
   })

@@ -1,4 +1,4 @@
-import type { CreateCategoryModel, DeleteCategoryModel, UpdateCategoryModel } from './../schema/category.schema'
+import type { CreateCategoryModel, UpdateCategoryModel } from './../schema/category.schema'
 import prisma from '~~/prisma/db'
 
 export const getOneCategory = async (categoryName: string) => {
@@ -26,7 +26,7 @@ export const createCategory = async (input: CreateCategoryModel['body']) => {
   })
 }
 
-export const updateCategory = async (id: UpdateCategoryModel['params'], input: UpdateCategoryModel['body']) => {
+export const updateCategory = async (id: string, input: UpdateCategoryModel['body']) => {
   return await prisma.category.update({
     where: {
       id: String(id),
@@ -38,7 +38,7 @@ export const updateCategory = async (id: UpdateCategoryModel['params'], input: U
   })
 }
 
-export const deleteCategory = async (id: DeleteCategoryModel['params']) => {
+export const deleteCategory = async (id: string) => {
   return await prisma.category.delete({
     where: {
       id: String(id),

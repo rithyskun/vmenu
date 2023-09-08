@@ -1,6 +1,6 @@
 import UrlPattern from 'url-pattern'
 import { getUserById } from '../service/user.service'
-
+import type { IRefreshToken } from '~/types/types'
 export default defineEventHandler(async (event) => {
   const endpoint = [
     '/api/auth/register',
@@ -14,8 +14,6 @@ export default defineEventHandler(async (event) => {
     '/api/product/:id',
     '/api/product/q',
   ]
-
-  const whiteList = ['/signup', '/login']
 
   const isHandledByThisMiddleware = endpoint.some((endpoint) => {
     const pattern = new UrlPattern(endpoint)

@@ -1,8 +1,6 @@
 import { useUserStore } from './../stores/auth'
-
 export default (url: string, options: any = {}) => {
   const user = useUserStore()
-
   return $fetch(url, {
     ...options,
     headers: {
