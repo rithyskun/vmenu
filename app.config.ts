@@ -38,6 +38,8 @@ export default defineAppConfig({
       upload: 'carbon:cloud-upload',
       checkmark: 'carbon:checkmark',
       warning: 'carbon:warning',
+      language: 'carbon:ibm-watson-language-translator',
+      search: 'carbon:search',
     },
   },
 })

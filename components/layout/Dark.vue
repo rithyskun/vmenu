@@ -13,6 +13,6 @@ const onClick = () => {
   <button aria-label="Color Mode" class="hover:text-cyan-500 dark:text-yellow-400" @click="onClick">
     <Icon v-if="colorMode.preference === 'dark'" size="16" name="carbon:moon" />
     <Icon v-else-if="colorMode.preference === 'light'" size="16" name="carbon:light" />
-    <Icon v-else size="16" name="carbon:screen" />
+    <Icon v-else size="18" name="carbon:screen" />
   </button>
 </template>

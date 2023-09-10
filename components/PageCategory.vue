@@ -1,0 +1,57 @@
+<script setup lang="ts">
+import type { ICategory } from '~/types/types'
+import { useProductStore } from '~~/stores/products'
+defineProps({
+  categories: Array as PropType<ICategory[]>,
+})
+const product = useProductStore()
+const { t } = useI18n()
+
+const products = computed(() => {
+  return product.products
+})
+onMounted(() => {
+  product.getProducts()
+})
+</script>
+
+<template>
+  <div id="category">
+    <div class="mb-3 mt-3 dark:text-white border-b border-gray-200 dark:border-gray-700">
+      <ul id="tabCategory" class="flex flex-wrap -mb-px text-sm font-medium text-center" data-tabs-toggle="#myTabContent" role="tablist">
+        <li class="mr-2" role="presentation">
+          <button id="all-tab" class="inline-block p-4 border-b-2 rounded-t-lg" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+            {{ t('all') }}
+          </button>
+        </li>
+        <li class="mr-2" role="presentation">
+          <button id="favorite-tab" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">
+            {{ t('favorite') }}
+          </button>
+        </li>
+        <li class="mr-2" role="presentation">
+          <button id="feature-tab" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">
+            {{ t('feature') }}
+          </button>
+        </li>
+        <li role="presentation">
+          <button id="promotion-tab" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">
+            {{ t('promotion') }}
+          </button>
+        </li>
+        <li v-for="(category, index) in categories" :key="index" role="presentation">
+          <button id="category-tab" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">
+            {{ category.categoryName }}
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div id="categoryContent">
+      <div id="cart" class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 lg:grid-cols-6">
+          <Cart :products="products" />
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

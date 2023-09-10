@@ -45,5 +45,9 @@
   "status": "Status",
   "active": "Active",
   "inactive": "InActive",
-  "double_click_to_edit": "Double Click To Edit"
+  "double_click_to_edit": "Double Click To Edit",
+  "feature": "Feature",
+  "favorite": "Favorite",
+  "promotion": "Promotion",
+  "all": "ALL"
 }

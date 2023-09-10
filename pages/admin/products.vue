@@ -217,13 +217,11 @@ onMounted(() => {
       <template #header>
         {{ formTitle }}
       </template>
-
       <template #body>
         <form id="product" name="product" @submit.prevent="handleSubmit">
           <div class="space-y-5">
             <SharedInput v-model="editedItem.productName" type="text" :label="t('product_name')" />
             <SharedTextarea v-model="editedItem.productDescription" type="text" :label="t('product_description')" />
-
             <label for="category-1" class="block text-sm font-medium text-gray-900 dark:text-white">{{ t('category') }}</label>
             <select id="category-1" v-model="editedItem.categoryId" class="bg-gray-50 border form-select border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option selected disabled class="text-gray-600 cursor-not-allowed bg-gray-100">
@@ -234,27 +232,21 @@ onMounted(() => {
               </option>
             </select>
             <SharedInput v-model.number="editedItem.salePrice" type="number" :label="t('sale_price')" />
-            <div class="flex justify-around">
-              <div class="flex justify-between flex-col">
-                <div class="flex items-center mb-5">
-                  <input id="checkbox-status" v-model="editedItem.status" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                  <label for="checkbox-status" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.status ? `${t('status')}: ${t('active')}` : `${t('status')}: ${t('inactive')}` }}</label>
-                </div>
-                <div class="flex items-center">
-                  <input id="checkbox-feature" v-model="editedItem.feature" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                  <label for="checkbox-feature" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.feature ? 'Feature: Active' : 'Feature: InActive' }}</label>
-                </div>
-              </div>
-              <div class="flex justify-between flex-col">
-                <div class="flex items-center mb-5">
-                  <input id="checkbox-favorite" v-model="editedItem.favorite" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                  <label for="checkbox-favorite" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.favorite ? 'Favorite: Active' : 'Favorite: InActive' }}</label>
-                </div>
-                <div class="flex items-center">
-                  <input id="checkbox-promotion" v-model="editedItem.promotion" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                  <label for="checkbox-promotion" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.promotion ? 'Promotion: Active' : 'Promotion: InActive' }}</label>
-                </div>
-              </div>
+            <div class="flex items-center pl-4 border bg-white dark:bg-gray-700 border-gray-200 rounded dark:border-gray-700">
+              <input id="checkbox-status" v-model="editedItem.status" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="checkbox-status" class="w-full py-3 ml-4 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.status ? `${t('status')}: ${t('active')}` : `${t('status')}: ${t('inactive')}` }}</label>
+            </div>
+            <div class="flex items-center pl-4 border bg-white dark:bg-gray-700 border-gray-200 rounded dark:border-gray-700">
+              <input id="checkbox-feature" v-model="editedItem.feature" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="checkbox-feature" class="w-full py-3 ml-4 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.feature ? `${t('feature')}: ${t('active')}` : `${t('feature')}: ${t('inactive')}` }}</label>
+            </div>
+            <div class="flex items-center pl-4 border bg-white dark:bg-gray-700 border-gray-200 rounded dark:border-gray-700">
+              <input id="checkbox-favorite" v-model="editedItem.favorite" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="checkbox-favorite" class="w-full py-3 ml-4 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.favorite ? `${t('favorite')}: ${t('active')}` : `${t('favorite')}: ${t('inactive')}` }}</label>
+            </div>
+            <div class="flex items-center pl-4 border bg-white dark:bg-gray-700 border-gray-200 rounded dark:border-gray-700">
+              <input id="checkbox-promotion" v-model="editedItem.promotion" type="checkbox" class="w-4 h-4 form-checkbox text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+              <label for="checkbox-promotion" class="w-full py-3 ml-4 text-sm font-medium text-gray-900 dark:text-gray-300">{{ editedItem.promotion ? `${t('promotion')}: ${t('active')}` : `${t('promotion')}: ${t('inactive')}` }}</label>
             </div>
             <SharedFile :image-selected="selectedImage" @selected-file="(file) => (selectedImage = file)" />
           </div>

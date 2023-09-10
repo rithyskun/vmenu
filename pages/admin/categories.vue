@@ -178,7 +178,7 @@ onMounted(() => {
           <button type="button" class="dark:text-white hover:bg-blue-200 h-8 w-8 hover:rounded-full" @click="editItem(item)">
             <Icon name="edit" class="h-5 w-5 text-blue-500" />
           </button>
-          <button type="button" class="dark:text-white hov er:bg-red-200 h-8 w-8 hover:rounded-full" @click="showModalConfirm(item)">
+          <button type="button" class="dark:text-white hover:bg-red-200 h-8 w-8 hover:rounded-full" @click="showModalConfirm(item)">
             <Icon name="delete" class="h-5 w-5 text-red-500" />
           </button>
         </template>
