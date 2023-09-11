@@ -1,11 +1,11 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { useLocalStorage } from '@vueuse/core'
 
-interface LanguageInfo {
+interface Language {
   lang: string
 }
 
-const language = useLocalStorage('locale', 'en' as LanguageInfo['lang'])
+const language = useLocalStorage('locale', 'en' as Language['lang'])
 
 export const useLocaleStore = defineStore('locale', {
   state: () => ({
@@ -19,8 +19,9 @@ export const useLocaleStore = defineStore('locale', {
   },
 
   actions: {
-    changeLocale(locale: LanguageInfo['lang']) {
+    changeLocale(locale: Language['lang']) {
       this.useLocale = locale
+      language.value = locale
     },
   },
 })

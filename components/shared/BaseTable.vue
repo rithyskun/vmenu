@@ -29,7 +29,7 @@ const perPages = ref(props.perPage)
 
 const sortKey = ref<string>('')
 
-const sortOrders = ref(props.columns.reduce((cv: any, key) => ((cv[key.id] = 1), cv), {}))
+const sortOrders = ref(Object.fromEntries(props.columns.map(key => [key.id, 1])))
 
 // Filter Data
 const filteredData = computed(() => {

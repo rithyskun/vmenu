@@ -1,8 +1,17 @@
 <script setup lang="ts">
 import { useLocaleStore } from '../../stores/locale'
 
-const { locale } = useI18n()
+const { locale, availableLocales, t } = useI18n()
 const store = useLocaleStore()
+
+const currentLanguage = useLocalStorage('locale', 'en')
+
+const toggleLocales = () => {
+  const locales = availableLocales
+  locale.value = locales[(locales.indexOf(locale.value) + 1) % locales.length]
+  currentLanguage.value = locale.value
+  store.changeLocale(locale.value)
+}
 
 watch(locale, (cv) => {
   store.changeLocale(cv)
@@ -10,15 +19,13 @@ watch(locale, (cv) => {
 </script>
 
 <template>
-  <select
-    v-model="locale"
-    class="flex bg-white hover:bg-gray-200 py-3 rounded-md border-none form-select hover:cursor-pointer text-sm focus:outline-none focus:ring-1 focus:ring-gray-200 dark:bg-gray-900 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+  <button
+    type="button"
+    class="flex rounded-lg px-2 py-2 text-sm dark:text-white"
+    @click="toggleLocales"
   >
-    <option value="en">
-      EN
-    </option>
-    <option value="km">
-      ខ្មែរ
-    </option>
-  </select>
+    <Icon name="language" size="18" />
+    <span v-show="locale === 'km'"> ខ្មែរ </span>
+    <span v-show="locale === 'en'"> en </span>
+  </button>
 </template>

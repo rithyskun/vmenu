@@ -1,9 +1,13 @@
 <script setup lang="ts">
-
+const { locale } = useI18n()
+const currentLanguage = useLocalStorage('locale', 'en')
+onMounted(() => {
+  locale.value = currentLanguage.value
+})
 </script>
 
 <template>
-  <div class="h-screen mx-auto dark:bg-dim-900">
+  <div class="dark:bg-dim-900 mx-auto h-full">
     <slot />
   </div>
 </template>
