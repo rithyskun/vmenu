@@ -6,6 +6,26 @@ export const useProductStore = defineStore('product', {
     products: [] as IProduct[],
   }),
   actions: {
+    async getAvailableProduct() {
+      try {
+        useProgressBar(true)
+        const data = await $fetch('/api/product/q', {
+          method: 'GET',
+          query: { status: true },
+        }) as any
+        return this.products = data
+      }
+      catch (error: any) {
+        useSnackbar({
+          show: true,
+          text: error.statusMessage,
+          color: 'error',
+        })
+      }
+      finally {
+        useProgressBar(false)
+      }
+    },
     async getProducts() {
       try {
         useProgressBar(true)
@@ -23,6 +43,7 @@ export const useProductStore = defineStore('product', {
         useProgressBar(false)
       }
     },
+
     async createProduct(product: IProduct) {
       try {
         await useFetchApi('/api/product/create', {

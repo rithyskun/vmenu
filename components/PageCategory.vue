@@ -1,18 +1,32 @@
 <script setup lang="ts">
-import type { ICategory } from '~/types/types'
-import { useProductStore } from '~~/stores/products'
-defineProps({
-  categories: Array as PropType<ICategory[]>,
-})
-const product = useProductStore()
-const { t } = useI18n()
+import type { ICategory, IProduct } from '~/types/types'
 
-const products = computed(() => {
-  return product.products
+defineProps({
+  categories: {
+    type: Array as PropType<ICategory[]>,
+    required: true,
+  },
+  products: {
+    type: Array as PropType<IProduct[]>,
+    required: true,
+  },
+  loading: {
+    type: Boolean,
+    required: true,
+  },
 })
-onMounted(() => {
-  product.getProducts()
-})
+
+const selectedTab = ref<string>('')
+
+const currentTab = () => {
+  return selectedTab.value
+}
+
+const selectedCategory = (cat: IProduct) => {
+  selectedTab.value = cat.categoryId
+}
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -48,9 +62,13 @@ onMounted(() => {
     </div>
     <div id="categoryContent">
       <div id="cart" class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800" role="tabpanel" aria-labelledby="profile-tab">
-        <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-3 lg:grid-cols-6">
+        <div v-if="products?.length" class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:grid-cols-6 h-96">
           <Cart :products="products" />
         </div>
+        <div v-else>
+          {{ t('data_not_found') }}
+        </div>
+        <SharedSpinner v-show="loading" />
       </div>
     </div>
   </div>

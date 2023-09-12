@@ -1,19 +1,25 @@
 <script setup lang="ts">
-import { useCategoriesStore } from '~~/stores/categories'
+import type { ICategory, IProduct } from '~/types/types'
 
-const category = useCategoriesStore()
-
-const categories = computed(() => {
-  return category.categories
-})
-onMounted(() => {
-  category.getCategories()
+defineProps({
+  categories: {
+    type: Array as PropType<ICategory[]>,
+    required: true,
+  },
+  products: {
+    type: Array as PropType<IProduct[]>,
+    required: true,
+  },
+  loading: {
+    type: Boolean,
+    required: true,
+  },
 })
 </script>
 
 <template>
   <div class="flex flex-col">
     <Carousel />
-    <PageCategory :categories="categories" />
+    <PageCategory :categories="categories" :products="products" :loading="loading" />
   </div>
 </template>

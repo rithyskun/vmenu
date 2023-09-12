@@ -46,18 +46,19 @@ export const deleteCategory = async (id: string) => {
   })
 }
 
-export const filterCategory = async (search: string) => {
+export const filterCategory = async (query: any) => {
+  const { keyword } = query
   return await prisma.category.findMany({
     where: {
       OR: [
         {
           categoryName: {
-            contains: search,
+            contains: keyword,
           },
         },
         {
           categoryImage: {
-            contains: search,
+            contains: keyword,
           },
         },
       ],

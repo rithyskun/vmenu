@@ -9,7 +9,7 @@ const user = reactive({
 
 const validationError = ref<string>('')
 
-const handleRegister = async () => {
+const handleLogin = async () => {
   const { login } = useUserStore()
 
   if (!user.email || !user.password) {
@@ -20,17 +20,19 @@ const handleRegister = async () => {
     return
   }
 
-  user.loading = true
   try {
+    user.loading = true
     await login({
       email: user.email,
       password: user.password,
     })
     navigateTo('/admin/products')
-    user.loading = false
   }
   catch (error) {
     console.error(error)
+  }
+  finally {
+    user.loading = false
   }
 }
 </script>
@@ -51,7 +53,7 @@ const handleRegister = async () => {
           >
             Sign in to your account
           </h1>
-          <form class="space-y-4 md:space-y-6" @submit.prevent="handleRegister">
+          <form class="space-y-4 md:space-y-6" @submit.prevent="handleLogin">
             <SharedInput
               v-model="user.email" label="Email Address" placeholder="Email address"
               :validation="validationError" type="text"

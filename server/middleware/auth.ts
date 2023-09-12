@@ -1,6 +1,6 @@
 import UrlPattern from 'url-pattern'
 import { getUserById } from '../service/user.service'
-import type { IRefreshToken } from '~/types/types'
+import type { IToken } from '~/types/types'
 export default defineEventHandler(async (event) => {
   const endpoint = [
     '/api/auth/register',
@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
 
   const token = event.node.req.headers.authorization?.split(' ')[1] as string
 
-  const decoded = decodeAccessToken(token) as IRefreshToken
+  const decoded = decodeAccessToken(token) as IToken
 
   if (!decoded) {
     return sendError(event, createError({

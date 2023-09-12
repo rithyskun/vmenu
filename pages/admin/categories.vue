@@ -17,7 +17,7 @@ const colHeader = computed(() => {
   return column.value
 })
 
-const selectedImage = ref<string>()
+const selectedImage = ref<string>('')
 
 const categories = computed(() => {
   return category.categories
@@ -50,6 +50,7 @@ const closeModal = () => {
     editIndex.value = -1
   })
   modal.value = false
+  selectedImage.value = ''
 }
 
 const editItem = (item: any) => {
@@ -61,6 +62,8 @@ const editItem = (item: any) => {
 
 const handleSubmit = async () => {
   loading.value = true
+
+  useProgressBar(true)
   if (!editedItem.value.categoryName) {
     useSnackbar({
       show: true,
@@ -87,6 +90,7 @@ const handleSubmit = async () => {
     finally {
       loading.value = false
       modal.value = false
+      closeModal()
     }
   }
   else {
@@ -106,6 +110,7 @@ const handleSubmit = async () => {
     finally {
       loading.value = false
       modal.value = false
+      closeModal()
     }
   }
 }
@@ -201,8 +206,8 @@ onMounted(() => {
       </template>
 
       <template #footer>
-        <SharedButton v-if="editIndex > -1" :disabled="loading" :label="t('update')" class="w-full" @click.prevent="handleSubmit" />
-        <SharedButton v-else :disabled="loading" :label="t('save')" class="w-full" @click.prevent="handleSubmit" />
+        <SharedButtonCustom v-if="editIndex > -1" :disabled="loading" :label="t('update')" class="w-full" @click.prevent="handleSubmit" />
+        <SharedButtonCustom v-else :disabled="loading" :label="t('save')" class="w-full" @click.prevent="handleSubmit" />
       </template>
     </SharedModal>
 
@@ -224,7 +229,7 @@ onMounted(() => {
       </template>
 
       <template #footer>
-        <SharedButton :disabled="loading" :label="`${t('delete')}`" class="w-full" @click.prevent="handleConfirmedDelete" />
+        <SharedButtonCustom :disabled="loading" :label="`${t('delete')}`" class="w-full" @click.prevent="handleConfirmedDelete" />
       </template>
     </SharedModal>
   </div>

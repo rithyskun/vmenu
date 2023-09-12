@@ -49,5 +49,9 @@
   "feature": "Feature",
   "favorite": "Favorite",
   "promotion": "Promotion",
-  "all": "ALL"
+  "all": "ALL",
+  "signout": "Signout",
+  "locale": "Language",
+  "dark_mode": "Dark Mode",
+  "click_to_add_item": "Add to cart"
 }
