@@ -2,6 +2,59 @@ import { productValidation } from '../schema/product.schema'
 import type { CreateProductModel, UpdateProductModel } from '../schema/product.schema'
 import prisma from '~~/prisma/db'
 
+export const queryProducts = async (query: any) => {
+  const { status, feature, favorite, promotion } = query
+
+  if (status === 'true' || status === true) {
+    return await prisma.product.findMany({
+      where: {
+        status: true,
+      },
+      include: {
+        category: true,
+      },
+    })
+  }
+  else if (feature === 'true' || feature === true) {
+    return await prisma.product.findMany({
+      where: {
+        feature: true,
+      },
+      include: {
+        category: true,
+      },
+    })
+  }
+  else if (favorite === 'true' || favorite === true) {
+    return await prisma.product.findMany({
+      where: {
+        favorite: true,
+      },
+      include: {
+        category: true,
+      },
+    })
+  }
+  else if (promotion === 'true' || promotion === true) {
+    return await prisma.product.findMany({
+      where: {
+        promotion: true,
+      },
+      include: {
+        category: true,
+      },
+    })
+  }
+  else {
+    return await prisma.product.findMany({
+      where: query,
+      include: {
+        category: true,
+      },
+    })
+  }
+}
+
 export const getOneProduct = async (productName: string) => {
   return await prisma.product.findFirst({
     where: {

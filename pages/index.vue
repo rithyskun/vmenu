@@ -1,11 +1,50 @@
 <script setup lang="ts">
 import { useUserStore } from '~/stores/auth'
-
+import { useCategoriesStore } from '~~/stores/categories'
+import { useProductStore } from '~~/stores/products'
 const { t } = useI18n()
+const product = useProductStore()
+
+const products = computed(() => {
+  return product.products
+})
+
+const category = useCategoriesStore()
+
+const categories = computed(() => {
+  return category.categories
+})
 
 const search = ref<string>('')
 
 const user = useUserStore()
+const loading = ref<boolean>(false)
+
+const filterProducts = computed(() => {
+  return products.value?.filter(
+    (item: any) =>
+      String(item.productName.toLowerCase()).includes(search.value.toLowerCase())
+      || String(item.categoryName).toLowerCase().includes(search.value.toLowerCase()),
+  )
+})
+
+const fetchProduct = async () => {
+  loading.value = true
+  try {
+    await product.getAvailableProduct()
+  }
+  catch (error) {
+    console.error(error)
+  }
+  finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  category.getCategories()
+  fetchProduct()
+})
 </script>
 
 <template>
@@ -15,7 +54,7 @@ const user = useUserStore()
         <label for="search" class="sr-only">Search</label>
         <div class="relative w-full">
           <Icon name="search" class="absolute mt-3.5 ml-3 text-gray-500" size="16" />
-          <input id="search" v-model="search" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" :placeholder="t('search')" required>
+          <input id="search" v-model="search" type="search" class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" :placeholder="t('search')" required>
         </div>
       </div>
       <div class="flex items-center md:order-2">
@@ -48,9 +87,9 @@ const user = useUserStore()
         </NuxtLink>
       </div>
     </nav>
-    <div class="bg-white overflow-auto border-gray-200 px-2 md:px-4 py-2.5 dark:bg-dim-900">
+    <div class="bg-white border-gray-200 px-2 md:px-4 py-2.5 dark:bg-dim-900 overflow-auto">
       <div class="grid grid-rows-3 md:grid-rows-1 grid-flow-col">
-        <PageBody />
+        <PageBody :categories="categories" :products="filterProducts" :loading="loading" />
       </div>
     </div>
   </NuxtLayout>

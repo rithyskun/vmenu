@@ -25,7 +25,7 @@ const colHeader = computed(() => {
   return column.value
 })
 
-const selectedImage = ref<string>()
+const selectedImage = ref<string>('')
 const keyword = ref<string>('')
 const modal = ref<boolean>(false)
 const showModal = () => {
@@ -63,10 +63,10 @@ const closeModal = () => {
   nextTick(() => {
     editedItem.value = Object.assign({}, defaultItem.value)
     editIndex.value = -1
-    modal.value = false
-    confirmModal.value = false
-    selectedImage.value = ''
   })
+  modal.value = false
+  confirmModal.value = false
+  selectedImage.value = ''
 }
 
 const formTitle = computed(() => {
@@ -122,8 +122,8 @@ const handleSubmit = async () => {
     }
     finally {
       loading.value = false
+      useProgressBar(false)
       closeModal()
-      useProgressBar(true)
     }
   }
   else {
@@ -132,7 +132,6 @@ const handleSubmit = async () => {
       await product.createProduct({
         ...editedItem.value,
       })
-      closeModal()
     }
     catch (error: any) {
       useSnackbar({
@@ -143,6 +142,7 @@ const handleSubmit = async () => {
     }
     finally {
       loading.value = false
+      useProgressBar(false)
       closeModal()
     }
   }

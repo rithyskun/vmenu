@@ -55,7 +55,7 @@ export interface IRegister {
   repeatPassword: string
 }
 
-export interface IRefreshToken {
+export interface IToken {
   token: string
   userId: string
 }

@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { navbarList } from '~~/navigationList'
 import { useUserStore } from '~~/stores/auth'
-import { useSidebarStore } from '~~/stores/sidebar'
 
 const user = useUserStore()
-const sidebar = useSidebarStore()
 const { t } = useI18n()
 const isMobile = ref<boolean>(false)
 
@@ -48,11 +46,26 @@ const handleLogout = async () => {
           </NuxtLink>
 
           <div class="flex items-center gap-5">
-            <layout-locale />
+            <SharedTooltip custom-style="right-5 mt-5">
+              <layout-locale />
+              <template #tooltip>
+                {{ t('locale') }}
+              </template>
+            </SharedTooltip>
 
-            <layout-dark />
+            <SharedTooltip custom-style="right-5 mt-5">
+              <layout-dark />
+              <template #tooltip>
+                {{ t('dark_mode') }}
+              </template>
+            </SharedTooltip>
 
-            <layout-logout @click="handleLogout" />
+            <SharedTooltip custom-style="right-5 mt-5">
+              <layout-logout @click="handleLogout" />
+              <template #tooltip>
+                {{ t('signout') }}
+              </template>
+            </SharedTooltip>
           </div>
         </ul>
       </div>

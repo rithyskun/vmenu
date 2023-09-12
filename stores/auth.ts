@@ -113,6 +113,7 @@ export const useUserStore = defineStore('auth', {
 
       setTimeout(async () => {
         await this.refreshToken()
+        this.reRefreshToken()
       }, newRefreshTime)
     },
     async initAuth() {
@@ -120,13 +121,14 @@ export const useUserStore = defineStore('auth', {
       try {
         await this.refreshToken()
         await this.getUser()
-
         this.reRefreshToken()
       }
       catch (error) {
         console.error(error)
       }
-      this.setIsAuthLoading(false)
+      finally {
+        this.setIsAuthLoading(false)
+      }
     },
     async logout() {
       try {

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
+const no_image = './no-image.png'
 const active = ref(0)
 const banners = ref([
   {
@@ -43,8 +44,8 @@ onMounted(() => {
     >
       <img
         class="h-[25vh] md:h-[45vh] w-96 items-center lg:w-full object-contain"
-        :src="img.imageUrl"
-        alt="img"
+        :src="img.imageUrl || no_image"
+        alt=""
       >
     </div>
   </div>

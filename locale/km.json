@@ -49,5 +49,9 @@
   "feature": "ពិសេស",
   "favorite": "ពេញនិយម",
   "promotion": "ប្រូម៉ូសិនពិសេស",
-  "all": "ទាំងអស់"
+  "all": "ទាំងអស់",
+  "signout": "ចាកចេញ",
+  "locale": "ភាសា",
+  "dark_mode": "ម៉ូត",
+  "click_to_add_item": "បញ្ជូលទំនិញ"
 }
