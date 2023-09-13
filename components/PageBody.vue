@@ -18,8 +18,9 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex flex-col">
-    <Carousel />
+  <div class="flex flex-col container mx-auto overflow-auto h-full">
+    <!-- <Carousel /> -->
+    <Hero />
     <PageCategory :categories="categories" :products="products" :loading="loading" />
   </div>
 </template>

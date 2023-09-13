@@ -121,7 +121,7 @@ const rowDBClick = (item: string) => {
       <tbody>
         <tr
           v-for="(entry, index) in paginatedData" :key="index"
-          class="text-gray-800 relative group h-10 hover:bg-gray-200 hover:cursor-pointer dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500"
+          class="text-gray-800 h-10 hover:bg-gray-200 hover:cursor-pointer dark:bg-gray-800 dark:text-white dark:hover:bg-gray-500"
           @click.prevent="rowClick(entry)"
           @dblclick.prevent="rowDBClick(entry)"
         >
@@ -134,9 +134,6 @@ const rowDBClick = (item: string) => {
                 </span>
               </slot>
             </td>
-            <div class="opacity-0 text-xs group-hover:opacity-100 duration-300 absolute left-0 bottom-0 z-10 flex justify-center font-mono items-end bg-gray-200 text-blue-500 italic">
-              {{ t('double_click_to_edit') }}
-            </div>
           </slot>
         </tr>
       </tbody>

@@ -21,7 +21,7 @@ watch(locale, (cv) => {
 <template>
   <button
     type="button"
-    class="flex rounded-lg px-2 py-2 text-sm dark:text-white"
+    class="flex rounded-lg text-sm dark:text-white"
     @click="toggleLocales"
   >
     <Icon name="language" size="18" />

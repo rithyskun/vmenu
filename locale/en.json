@@ -53,5 +53,7 @@
   "signout": "Signout",
   "locale": "Language",
   "dark_mode": "Dark Mode",
-  "click_to_add_item": "Add to cart"
+  "click_to_add_item": "Add to cart",
+  "choose_category": "Choose Category",
+  "cart": "Cart"
 }

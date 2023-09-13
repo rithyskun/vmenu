@@ -38,7 +38,7 @@ const handleLogin = async () => {
 </script>
 
 <template>
-  <section class="bg-white dark:bg-dim-900">
+  <section class="bg-white dark:bg-dim-900 h-screen">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <div v-if="user.loading">
         <SharedSpinner />

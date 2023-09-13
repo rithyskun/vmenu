@@ -171,47 +171,46 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <div class="md:space-y-5 space-y-2 dark:bg-dim-900 dark:text-white bg-white">
-      <div class="text-xl italic font-bold block md:hidden">
-        {{ t('product') }}
-      </div>
-      <div class="mx-1 items-center flex justify-between">
-        <div class="flex space-x-2 space-y-2">
-          <SharedInput v-model="keyword" type="text" :placeholder="t('search')" class="w-64 lg:w-96" />
-          <SharedButton :label="t('new')" class="w-20 md:24" @click="showModal" />
-        </div>
-        <span class="text-xl italic font-bold hidden md:block">
-          {{ t('products') }}
-        </span>
-      </div>
-      <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="products" :per-page="10" @row-d-b-click="(item) => doubleClickToEdit(item)">
-        <template #salePrice="{ item }: any">
-          {{ AppHelper.formatCurrency(item.salePrice) }}
-        </template>
-        <template #category="{ item }: any">
-          {{ item.category.categoryName }}
-        </template>
-        <template #productImage="{ item }: any">
-          <div class="text-center flex flex-col items-center">
-            <NuxtImg :src="item.productImage || no_image" class="h-16 w-full object-contain object-center" />
-          </div>
-        </template>
-        <template #status="{ item }: any">
-          <div class="rounded-md border px-1 py-1" :class="item.status ? 'dark:bg-green-300 bg-green-500 text-white dark:text-gray-900' : 'dark:bg-red-300 bg-red-500 text-white dark:text-gray-900'">
-            {{ item.status ? t('active') : t('inactive') }}
-          </div>
-        </template>
-        <template #actions="{ item }">
-          <button type="button" class="dark:text-white hover:bg-blue-200 h-8 w-8 hover:rounded-full" @click="editItem(item)">
-            <Icon name="edit" class="h-5 w-5 text-blue-500" />
-          </button>
-          <button type="button" class="dark:text-white hover:bg-red-200 h-8 w-8 hover:rounded-full" @click="showModalConfirm(item)">
-            <Icon name="delete" class="h-5 w-5 text-red-500" />
-          </button>
-        </template>
-      </SharedBaseTable>
+  <div class="md:space-y-5 space-y-2 dark:bg-dim-900 dark:text-white bg-white">
+    <div class="text-xl italic font-bold block md:hidden">
+      {{ t('product') }}
     </div>
+    <div class="mx-1 items-center flex justify-between">
+      <div class="flex space-x-2 space-y-2">
+        <SharedInput v-model="keyword" type="text" :placeholder="t('search')" class="w-64 lg:w-96" />
+        <SharedButton :label="t('new')" class="w-20 md:24" @click="showModal" />
+      </div>
+      <span class="text-xl italic font-bold hidden md:block">
+        {{ t('products') }}
+      </span>
+    </div>
+    <SharedBaseTable :filter-key="keyword" :columns="colHeader" :rows="products" :per-page="10" @row-d-b-click="(item) => doubleClickToEdit(item)">
+      <template #salePrice="{ item }: any">
+        {{ AppHelper.formatCurrency(item.salePrice) }}
+      </template>
+      <template #category="{ item }: any">
+        {{ item.category.categoryName }}
+      </template>
+      <template #productImage="{ item }: any">
+        <div class="text-center flex flex-col items-center">
+          <NuxtImg :src="item.productImage || no_image" class="h-16 w-full object-contain object-center" />
+        </div>
+      </template>
+      <template #status="{ item }: any">
+        <div class="rounded-md border px-1 py-1" :class="item.status ? 'dark:bg-green-300 bg-green-500 text-white dark:text-gray-900' : 'dark:bg-red-300 bg-red-500 text-white dark:text-gray-900'">
+          {{ item.status ? t('active') : t('inactive') }}
+        </div>
+      </template>
+      <template #actions="{ item }">
+        <button type="button" class="dark:text-white hover:bg-blue-200 h-8 w-8 hover:rounded-full" @click="editItem(item)">
+          <Icon name="edit" class="h-5 w-5 text-blue-500" />
+        </button>
+        <button type="button" class="dark:text-white hover:bg-red-200 h-8 w-8 hover:rounded-full" @click="showModalConfirm(item)">
+          <Icon name="delete" class="h-5 w-5 text-red-500" />
+        </button>
+      </template>
+    </SharedBaseTable>
+
     <!-- model create/update Product  -->
     <SharedModal v-show="modal" @close="closeModal">
       <template #header>
@@ -225,7 +224,7 @@ onMounted(() => {
             <label for="category-1" class="block text-sm font-medium text-gray-900 dark:text-white">{{ t('category') }}</label>
             <select id="category-1" v-model="editedItem.categoryId" class="bg-gray-50 border form-select border-gray-300 text-gray-900 mb-6 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option selected disabled class="text-gray-600 cursor-not-allowed bg-gray-100">
-                Choose a category
+                {{ t('choose_category') }}
               </option>
               <option v-for="(cat, index) in categories" :key="index" :value="cat.id">
                 {{ cat.categoryName }}

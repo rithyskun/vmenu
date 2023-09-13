@@ -1,7 +1,7 @@
 {
   // Visuals
   "workbench.activityBar.visible": true,
-  "workbench.colorTheme": "Default Light+",
+  "workbench.colorTheme": "Sapphire (Bright)",
   "workbench.editor.tabCloseButton": "right",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.list.smoothScrolling": true,

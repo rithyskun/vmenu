@@ -3,8 +3,8 @@
 </script>
 
 <template>
-  <div class="dark:bg-dim-900 mx-auto h-full">
-    <LayoutNavbar />
+  <div class="dark:bg-dim-900 mx-auto container">
+    <LayoutNavbarAdmin />
     <LayoutSidebar />
     <div class="bg-white dark:bg-dim-900 h-screen mx-3">
       <slot />
