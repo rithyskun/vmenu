@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { navbarList } from '~~/navigationList'
 import { useUserStore } from '~~/stores/auth'
+import { navbarList } from '~/navigationList'
 
 const user = useUserStore()
 const { t } = useI18n()
@@ -35,16 +35,7 @@ const handleLogout = async () => {
         <ul
           class="flex space-x-2 flex-col items-center justify-center text-center md:flex-row md:mt-0 md:text-sm md:font-medium md:border-0 dark:border-gray-700"
         >
-          <NuxtLink
-            v-for="nav in navbarList"
-            :key="nav.name"
-            class="block dark:text-white uppercase px-3 py-3 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900"
-            active-class="bg-blue-600 text-white dark:bg-blue-600 dark:text-white py-2.5 px-3 rounded-md"
-            :to="nav.to"
-          >
-            {{ t(nav.locale) }}
-          </NuxtLink>
-
+          <LayoutNavbarMenuList :navbar-list="navbarList" />
           <div class="flex items-center gap-5">
             <SharedTooltip custom-style="right-5 mt-5">
               <layout-locale />

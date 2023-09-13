@@ -40,6 +40,7 @@ export default defineAppConfig({
       warning: 'carbon:warning',
       language: 'carbon:ibm-watson-language-translator',
       search: 'carbon:search',
+      cart: 'carbon:shopping-cart',
     },
   },
 })

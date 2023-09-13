@@ -26,7 +26,7 @@ export class AppHelper {
     value = parseFloat(value)
     if (!isFinite(value) || (!value && value !== 0))
       return ''
-    currency = currency != null ? currency : '$ '
+    currency = currency != null ? currency : '$'
     decimals = decimals != null ? decimals : 2
     const stringified = Math.abs(value).toFixed(decimals)
     const _int = decimals ? stringified.slice(0, -1 - decimals) : stringified

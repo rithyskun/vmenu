@@ -13,8 +13,8 @@ export default defineNuxtConfig({
     '@nuxt/image-edge',
     ['@nuxtjs/google-fonts', {
       families: {
-        'Inter': [100, 300, 400, 500],
-        'Noto Sans Khmer': [100, 300, 400, 500],
+        'Inter': [100, 200, 300, 400, 500],
+        'Noto Sans Khmer': [100, 200, 300, 400, 500],
       },
     }],
   ],

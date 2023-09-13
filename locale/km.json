@@ -53,5 +53,7 @@
   "signout": "ចាកចេញ",
   "locale": "ភាសា",
   "dark_mode": "ម៉ូត",
-  "click_to_add_item": "បញ្ជូលទំនិញ"
+  "click_to_add_item": "បញ្ជូលទំនិញ",
+  "choose_category": "ជ្រើសរើសប្រភេទ",
+  "cart": "ទំនិញ"
 }
