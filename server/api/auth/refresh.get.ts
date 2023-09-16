@@ -2,7 +2,7 @@ import { sendError } from 'h3'
 import { getRefreshTokenByToken } from '~~/server/service/refreshToken.service'
 import { getUserById } from '~~/server/service/user.service'
 import { decodeRefreshToken } from '~~/server/utils/jwt'
-import type { IToken, IUser } from '~~/types/types'
+import type { IToken, IUser } from '~/types'
 
 export default defineEventHandler(async (event) => {
   const cookie = parseCookies(event)

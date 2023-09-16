@@ -20,6 +20,12 @@ export interface IProduct {
   updatedAt?: Date
 }
 
+export interface ISpecialProductItem {
+  id: number
+  data: Object
+  label: string
+}
+
 export interface IUser {
   id: string
   name: string

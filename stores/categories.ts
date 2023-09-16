@@ -1,5 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { Category, ICategory } from '~~/types/types'
+import type { Category, ICategory } from '~/types'
 
 export const useCategoriesStore = defineStore('category', {
   state: () => ({

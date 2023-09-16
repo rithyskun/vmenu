@@ -49,7 +49,7 @@ onMounted(() => {
       > -->
       <NuxtImg
         class="h-[25vh] md:h-[45vh] w-96 items-center lg:w-full object-contain"
-        :src="`https://swiperjs.com/demos/images/nature-${img}.jpg`"
+        :src="`https://swiperjs.com/demos/images/nature-${img}.jpg` || no_image"
       />
     </div>
   </div>

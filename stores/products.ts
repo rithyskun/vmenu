@@ -1,11 +1,51 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { IProduct } from './../types/types'
+import type { IProduct } from '../types'
 
 export const useProductStore = defineStore('product', {
   state: () => ({
     products: [] as IProduct[],
   }),
   actions: {
+    async getProductSpecial(params: Object = {}) {
+      try {
+        useProgressBar(true)
+        const data = await $fetch('/api/product/q', {
+          method: 'GET',
+          query: params,
+        }) as any
+        return this.products = data
+      }
+      catch (error: any) {
+        useSnackbar({
+          show: true,
+          text: error.statusMessage,
+          color: 'error',
+        })
+      }
+      finally {
+        useProgressBar(false)
+      }
+    },
+    async getProductByCategory(category: string) {
+      try {
+        useProgressBar(true)
+        const data = await $fetch('/api/product/q', {
+          method: 'GET',
+          query: { categoryId: category },
+        }) as any
+        return this.products = data
+      }
+      catch (error: any) {
+        useSnackbar({
+          show: true,
+          text: error.statusMessage,
+          color: 'error',
+        })
+      }
+      finally {
+        useProgressBar(false)
+      }
+    },
     async getAvailableProduct() {
       try {
         useProgressBar(true)

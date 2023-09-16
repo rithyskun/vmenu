@@ -4,7 +4,7 @@
 
 <template>
   <div>
-    Qrcode
+    Qr code
   </div>
 </template>
 

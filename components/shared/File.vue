@@ -11,7 +11,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['selectedFile'])
 
-const loading = ref<boolean>(false)
+const loading = isLoading()
 const file = ref()
 const formData = ref()
 
@@ -27,7 +27,7 @@ const handleImageChange = async (event: Event) => {
     file.value = target.files[0]
 
   prepareFormData()
-  loading.value = true
+  useLoading(true)
   try {
     const upload = await useFetchApi('/api/upload', {
       method: 'POST',
@@ -43,7 +43,7 @@ const handleImageChange = async (event: Event) => {
     })
   }
   finally {
-    loading.value = false
+    useLoading(false)
   }
 }
 </script>

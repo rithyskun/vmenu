@@ -45,7 +45,7 @@ onClickOutside(target, () => {
           v-for="(nav, index) in mobileNavbarList" :key="index" :to="nav.to" active-class="bg-blue-200"
           class="flex items-center rounded-md p-2 text-base font-normal text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
         >
-          <Icon :name="nav.icon" />
+          <Icon :name="nav.icon" size="18" />
           <span class="ml-3">{{ t(nav.locale) }}</span>
         </NuxtLink>
       </ul>

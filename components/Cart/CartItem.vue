@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { AppHelper } from '~/server/utils/helper'
-import type { IProduct } from '~/types/types'
+import type { IProduct } from '~/types'
 defineProps({
   products: Array as PropType<IProduct[]>,
 })
@@ -15,6 +15,7 @@ const no_image = '/no-image.png'
     <SharedTooltip custom-style="right-0 opacity-75">
       <div
         class="rounded-lg hover:cursor-pointer dark:bg-gray-700 aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200 group-hover:opacity-75 lg:aspect-none"
+        @click="addToCart()"
       >
         <div>
           <NuxtImg :src="item?.productImage || no_image" class="md:h-44 rounded-lg h-36 brightness-75 bg-gradient-to-r from-cyan-500 opacity-95 w-96 object-cover object-center" alt="" />
@@ -42,3 +43,4 @@ const no_image = '/no-image.png'
     </SharedTooltip>
   </div>
 </template>
+~/types

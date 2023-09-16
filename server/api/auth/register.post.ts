@@ -1,6 +1,6 @@
 import { sendError } from 'h3'
 import { registerValidation } from './../../schema/user.schema'
-import type { IUser } from '~~/types/types'
+import type { IUser } from '~/types'
 import { userTransformer } from '~~/server/transformers/user'
 import { createUser } from '~~/server/service/user.service'
 import type { CreateUserModel } from '~~/server/schema/user.schema'

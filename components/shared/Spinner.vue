@@ -1,5 +1,9 @@
+<script setup lang="ts">
+const loading = isLoading()
+</script>
+
 <template>
-  <div class="flex py-48 w-full flex-col items-center justify-center">
+  <div v-show="loading" class="inline-flex opacity-80 py-48 w-full flex-col items-center justify-center">
     <svg
       width="70" height="70" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"

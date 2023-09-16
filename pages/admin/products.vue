@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useProductStore } from '~~/stores/products'
-import type { IProduct } from '~~/types/types'
+import type { IProduct } from '~~/types'
 import { useCategoriesStore } from '~~/stores/categories'
 import { AppHelper } from '~~/server/utils/helper'
 
@@ -90,9 +90,10 @@ const showModalConfirm = async (item: any) => {
   confirmDeletedId.value = item?.id
   confirmDeleteItem.value = item?.category.categoryName
 }
-const loading = ref<boolean>(false)
+
+const loading = isLoading()
 const handleSubmit = async () => {
-  loading.value = true
+  useLoading(true)
 
   useProgressBar(true)
   if (!editedItem.value.productName || !editedItem.value.categoryId || !editedItem.value.salePrice) {
@@ -101,7 +102,7 @@ const handleSubmit = async () => {
       text: 'INVALID.USER.INPUT',
       color: 'error',
     })
-    loading.value = false
+    useLoading(false)
     useProgressBar(false)
     return
   }
@@ -121,7 +122,7 @@ const handleSubmit = async () => {
       })
     }
     finally {
-      loading.value = false
+      useLoading(false)
       useProgressBar(false)
       closeModal()
     }
@@ -141,7 +142,7 @@ const handleSubmit = async () => {
       })
     }
     finally {
-      loading.value = false
+      useLoading(false)
       useProgressBar(false)
       closeModal()
     }
@@ -281,3 +282,4 @@ onMounted(() => {
     </SharedModal>
   </div>
 </template>
+~/types

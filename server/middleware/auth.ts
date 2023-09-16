@@ -1,6 +1,6 @@
 import UrlPattern from 'url-pattern'
 import { getUserById } from '../service/user.service'
-import type { IToken } from '~/types/types'
+import type { IToken } from '~/types'
 export default defineEventHandler(async (event) => {
   const endpoint = [
     '/api/auth/register',

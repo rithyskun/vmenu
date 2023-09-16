@@ -16,8 +16,6 @@ const categories = computed(() => {
 
 const search = ref<string>('')
 
-const loading = ref<boolean>(false)
-
 const filterProducts = computed(() => {
   return products.value?.filter(
     (item: any) =>
@@ -27,7 +25,7 @@ const filterProducts = computed(() => {
 })
 
 const fetchProduct = async () => {
-  loading.value = true
+  useLoading(true)
   try {
     await product.getAvailableProduct()
   }
@@ -35,7 +33,7 @@ const fetchProduct = async () => {
     console.error(error)
   }
   finally {
-    loading.value = false
+    useLoading(false)
   }
 }
 
@@ -50,7 +48,7 @@ onMounted(() => {
     <LayoutNavbarHome v-model="search" />
     <div class="bg-white border-gray-200 px-2 md:px-4 py-2.5 dark:bg-dim-900">
       <div class="grid grid-rows-3 md:grid-rows-1 grid-flow-col">
-        <PageBody :categories="categories" :products="filterProducts" :loading="loading" />
+        <PageBody :categories="categories" :products="filterProducts" />
       </div>
     </div>
   </NuxtLayout>

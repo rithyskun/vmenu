@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useCategoriesStore } from '~~/stores/categories'
-import type { Category } from '~~/types/types'
+import type { Category } from '~~/types'
 
 const no_image = '/no-image.png'
 const category = useCategoriesStore()
@@ -32,7 +32,7 @@ const defaultItem = ref<Category>({
 })
 
 const modal = ref<boolean>(false)
-const loading = ref<boolean>(false)
+const loading = isLoading()
 const formTitle = computed(() => {
   return editIndex.value === -1 ? `${t('new')} ${t('category')}` : `${t('edit')} ${t('category')}`
 })
@@ -61,7 +61,7 @@ const editItem = (item: any) => {
 }
 
 const handleSubmit = async () => {
-  loading.value = true
+  useLoading(true)
 
   useProgressBar(true)
   if (!editedItem.value.categoryName) {
@@ -70,7 +70,8 @@ const handleSubmit = async () => {
       text: 'Category name is required',
       color: 'error',
     })
-    return loading.value = false
+    useLoading(false)
+    return
   }
 
   if (editIndex.value > -1) {
@@ -88,7 +89,7 @@ const handleSubmit = async () => {
       })
     }
     finally {
-      loading.value = false
+      useLoading(false)
       modal.value = false
       closeModal()
     }
@@ -108,7 +109,7 @@ const handleSubmit = async () => {
       })
     }
     finally {
-      loading.value = false
+      useLoading(false)
       modal.value = false
       closeModal()
     }
@@ -125,7 +126,7 @@ const showModalConfirm = async (item: any) => {
 }
 
 const handleConfirmedDelete = async () => {
-  loading.value = true
+  useLoading(true)
   try {
     return await category.deleteCategory(confirmDeleteId.value)
   }
@@ -137,7 +138,7 @@ const handleConfirmedDelete = async () => {
     })
   }
   finally {
-    loading.value = false
+    useLoading(false)
     confirmDeleteId.value = ''
     confirmModal.value = false
   }
@@ -234,3 +235,4 @@ onMounted(() => {
     </SharedModal>
   </div>
 </template>
+~/types

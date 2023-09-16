@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import { sendError } from 'h3'
 import { generateTokens } from './../../utils/jwt'
-import type { IUser } from '~~/types/types'
+import type { IUser } from '~/types'
 import { getUserByEmail } from '~~/server/service/user.service'
 import { createRefreshToken } from '~~/server/service/refreshToken.service'
 import { userTransformer } from '~~/server/transformers/user'
