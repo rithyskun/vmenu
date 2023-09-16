@@ -1,7 +1,7 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import type { JwtPayload } from 'jwt-decode'
 import jwt_decode from 'jwt-decode'
-import type { ILogin, IRegister, IResponseLogin } from './../types/types'
+import type { ILogin, IRegister, IResponseLogin } from '../types'
 
 type jwtToken = JwtPayload & {
   name: string

@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import type { H3Event } from 'h3'
-import type { IUser } from '~~/types/types'
+import type { IUser } from '~/types'
 
 const generateAccessToken = (user: IUser) => {
   const config = useRuntimeConfig()

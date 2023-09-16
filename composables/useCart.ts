@@ -1,1 +1,12 @@
-export const useCart = () => useState<number>('cart', () => 0)
+interface ICart {
+  id: string
+  productName: string
+  quantity: number
+}
+
+export const useCartItem = () => useState<ICart[]>('cart', () => [])
+
+export const addToCart = () => {
+  const item = useCartItem()
+  return item.quantity++
+}

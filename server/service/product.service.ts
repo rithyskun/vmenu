@@ -19,6 +19,7 @@ export const queryProducts = async (query: any) => {
     return await prisma.product.findMany({
       where: {
         feature: true,
+        status: true,
       },
       include: {
         category: true,
@@ -29,6 +30,7 @@ export const queryProducts = async (query: any) => {
     return await prisma.product.findMany({
       where: {
         favorite: true,
+        status: true,
       },
       include: {
         category: true,
@@ -39,6 +41,7 @@ export const queryProducts = async (query: any) => {
     return await prisma.product.findMany({
       where: {
         promotion: true,
+        status: true,
       },
       include: {
         category: true,

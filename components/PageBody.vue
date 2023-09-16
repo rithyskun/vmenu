@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ICategory, IProduct } from '~/types/types'
+import type { ICategory, IProduct } from '~/types'
 
 defineProps({
   categories: {
@@ -10,10 +10,6 @@ defineProps({
     type: Array as PropType<IProduct[]>,
     required: true,
   },
-  loading: {
-    type: Boolean,
-    required: true,
-  },
 })
 </script>
 
@@ -21,6 +17,7 @@ defineProps({
   <div class="flex flex-col container mx-auto overflow-auto h-full">
     <!-- <Carousel /> -->
     <Hero />
-    <PageCategory :categories="categories" :products="products" :loading="loading" />
+    <PageCategory :categories="categories" :products="products" />
   </div>
 </template>
+~/types
