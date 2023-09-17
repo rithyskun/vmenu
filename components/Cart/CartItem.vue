@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import { AppHelper } from '~/server/utils/helper'
+import { useCartStore } from '~/stores/carts'
 import type { IProduct } from '~/types'
 defineProps({
   products: Array as PropType<IProduct[]>,
 })
 
+const store = useCartStore()
+
 const { t } = useI18n()
 
 const no_image = '/no-image.png'
+
+const addToCart = (payload: any) => {
+  store.addProductToCart(payload)
+}
 </script>
 
 <template>
@@ -15,7 +22,7 @@ const no_image = '/no-image.png'
     <SharedTooltip custom-style="right-0 opacity-75">
       <div
         class="rounded-lg hover:cursor-pointer dark:bg-gray-700 aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200 group-hover:opacity-75 lg:aspect-none"
-        @click="addToCart()"
+        @click="addToCart(item)"
       >
         <div>
           <NuxtImg :src="item?.productImage || no_image" class="md:h-44 rounded-lg h-36 brightness-75 bg-gradient-to-r from-cyan-500 opacity-95 w-96 object-cover object-center" alt="" />
@@ -23,7 +30,7 @@ const no_image = '/no-image.png'
       </div>
       <div class="mt-1 flex justify-between">
         <div>
-          <h3 class="text-sm absolute text-white ml-2 bottom-10 line-clamp-2 w-44 dark:text-gray-200">
+          <h3 class="text-sm truncate absolute text-white ml-2 bottom-10 line-clamp w-32 dark:text-gray-200">
             <a href="#">
               <span aria-hidden="true" />
               {{ item.productName }}
@@ -43,4 +50,3 @@ const no_image = '/no-image.png'
     </SharedTooltip>
   </div>
 </template>
-~/types

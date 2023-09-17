@@ -91,3 +91,11 @@ export interface colDef {
   text: string
   type?: string
 }
+
+export interface ICart {
+  id: string
+  productName: string
+  productImage: string
+  quantity: number
+  salePrice: number
+}

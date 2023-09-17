@@ -9,5 +9,6 @@ onMounted(() => {
 <template>
   <div class="dark:bg-dim-900 mx-auto">
     <slot />
+    <Snackbar />
   </div>
 </template>

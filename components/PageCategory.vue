@@ -84,7 +84,7 @@ onMounted(() => {
       </ul>
     </div>
     <div id="categoryContent">
-      <div id="cart" class="p-4 overflow-hidden rounded-lg bg-gray-50 dark:bg-dim-900" role="tabpanel" aria-labelledby="profile-tab">
+      <div id="cart" class="p-4 overflow-hidden dark:text-white rounded-lg bg-gray-50 dark:bg-dim-900" role="tabpanel" aria-labelledby="profile-tab">
         <div v-if="products?.length" class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:grid-cols-6">
           <CartItem :products="products" />
         </div>

@@ -2,11 +2,7 @@ import { getCookie, setCookie } from 'h3'
 import type { H3Event } from 'h3'
 
 export class AppHelper {
-  constructor(
-
-  ) {
-
-  }
+  constructor() {}
 
   static useCookies(event: H3Event) {
     const token = getCookie(event, 'refresh_token') || ''
@@ -19,6 +15,15 @@ export class AppHelper {
 
   static escapeRegex(str: string) {
     return str.replace(/[/\-\\^$*+?.()|[\]{}]/g, '\\$&')
+  }
+
+  static formatPhoneNumber(phoneNumber: string) {
+    const regex = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
+    const match = regex.exec(phoneNumber)
+    if (match)
+      return `(${match[1]}) ${match[2]}-${match[3]}`
+
+    return phoneNumber
   }
 
   static formatCurrency(value: any, currency?: string, decimals?: number) {
