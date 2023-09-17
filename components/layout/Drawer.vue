@@ -25,11 +25,12 @@ onClickOutside(target, () => {
   <!-- drawer component -->
   <div
     v-show="show" id="drawer-navigation" ref="target"
-    class="fixed border top-14 left-0 z-20 h-screen w-60 md:w-72 overflow-y-auto bg-gray-50 p-4 dark:bg-gray-800" tabindex="-1"
+    class="fixed top-14 left-0 z-20 h-screen w-60 md:w-72 overflow-y-auto bg-gray-50 p-4 dark:bg-gray-800" tabindex="-1"
     aria-labelledby="drawer-navigation-label"
   >
     <h5 id="drawer-navigation-label" class="text-base font-semibold uppercase text-gray-500 dark:text-gray-400">
       {{ t("welcome") }}
+      {{ show }}
     </h5>
     <button
       type="button" data-drawer-hide="drawer-navigation" aria-controls="drawer-navigation"

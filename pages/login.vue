@@ -53,7 +53,7 @@ const handleLogin = async () => {
           >
             Sign in to your account
           </h1>
-          <form class="space-y-4 md:space-y-6" @submit="handleLogin">
+          <form class="space-y-4 md:space-y-6" @submit.prevent="handleLogin">
             <SharedInput
               v-model="user.email" label="Email Address" placeholder="Email address"
               :validation="validationError" type="text"

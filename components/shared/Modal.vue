@@ -12,10 +12,10 @@ whenever(keys.escape, () => {
 </script>
 
 <template>
-  <div id="modal-backdrop" class="fixed inset-0 z-40 flex items-center justify-center bg-gray-700 bg-opacity-75">
+  <div id="modal-backdrop" class="fixed inset-0 z-40 flex items-center justify-center bg-gray-700 bg-opacity-90">
     <div
       id="modal"
-      class="relative flex w-full mx-2 md:w-3/6 lg:w-2/6 h-3/5 lg:h-4/6 flex-col justify-between rounded-md bg-gray-50 dark:bg-gray-500 dark:text-white"
+      class="relative flex w-full mx-2 md:w-3/6 lg:w-2/6 h-4/5 lg:h-4/6 flex-col justify-between rounded-md bg-gray-50 dark:bg-gray-500 dark:text-white"
     >
       <header id="modal-header" class="flex items-center justify-between border-b-2 border-white p-3">
         <div class="font-bold text-lg">

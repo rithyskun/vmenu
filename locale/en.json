@@ -3,9 +3,6 @@
   "welcome": "Welcome",
   "about": "About me",
   "dashboard": "Dashboard",
-  "todo_app": "Todo Apps",
-  "what_needs_to_be_done": "What needs to be done?",
-  "add_search_todo": "Add/Search Todo",
   "add_sale": "Add Sale",
   "projects": "Projects",
   "sale": "Sales",
@@ -55,5 +52,15 @@
   "dark_mode": "Dark Mode",
   "click_to_add_item": "Add to cart",
   "choose_category": "Choose Category",
-  "cart": "Cart"
+  "cart": "Cart",
+  "submit": "Submit",
+  "place_order": "Place Order",
+  "amount": "Amount",
+  "grand_total": "Grand Total",
+  "quantity": "QTY",
+  "total": "Total",
+  "contact": "Contact",
+  "phone": "Phone Number",
+  "address": "Address",
+  "optional": "Optional"
 }

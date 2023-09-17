@@ -3,9 +3,6 @@
   "welcome": "សូមស្វាគមន៍",
   "about": "អំពីខ្ញុំ",
   "dashboard": "ផ្ទាំងគ្រប់គ្រង",
-  "todo_app": "កម្មវិធី Todo",
-  "what_needs_to_be_done": "តើត្រូវធ្វើអ្វី?",
-  "add_search_todo": "បង្កើតថ្មី / ស្វែងរក",
   "add_sale": "បង្កើតការលក់ថ្មី",
   "projects": "គម្រោង",
   "sale": "ការលក់",
@@ -55,5 +52,15 @@
   "dark_mode": "ម៉ូត",
   "click_to_add_item": "បញ្ជូលទំនិញ",
   "choose_category": "ជ្រើសរើសប្រភេទ",
-  "cart": "ទំនិញ"
+  "cart": "ទំនិញ",
+  "submit": "ដាក់ស្នើ",
+  "place_order": "ដាក់បញ្ជាទិញឥឡូវនេះ",
+  "amount": "ចំនួនទឹកប្រាក់",
+  "grand_total": "សរុបចុងក្រោយ",
+  "quantity": "បរិមាណ",
+  "total": "សរុប",
+  "contact": "ទំនាក់ទំនង",
+  "phone": "លេខទូរស័ព្ទ",
+  "address": "អាសយដ្ឋាន",
+  "optional": "ជាជម្រើស"
 }

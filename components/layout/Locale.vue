@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useLocaleStore } from '../../stores/locale'
 
-const { locale, availableLocales, t } = useI18n()
+const { locale, availableLocales } = useI18n()
 const store = useLocaleStore()
 
 const currentLanguage = useLocalStorage('locale', 'en')
@@ -26,6 +26,6 @@ watch(locale, (cv) => {
   >
     <Icon name="language" size="18" />
     <span v-show="locale === 'km'"> ខ្មែរ </span>
-    <span v-show="locale === 'en'"> en </span>
+    <span v-show="locale === 'en'"> EN </span>
   </button>
 </template>
