@@ -34,11 +34,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative overflow-hidden rounded-lg md:h-96">
+  <div class="relative overflow-hidden rounded-lg md:h-full md:mb-5">
     <div
       v-for="(img, index) in 10"
       :id="`slide-${index}`"
-      :key="img.index"
+      :key="index"
       :class="`${active === index ? 'left-0' : 'left-full'}`"
       class="carousel-item w-full inset-0 transform px-5 transition-all duration-500 ease-in-out"
     >
@@ -48,7 +48,7 @@ onMounted(() => {
         alt=""
       > -->
       <NuxtImg
-        class="h-[25vh] md:h-[45vh] w-96 items-center lg:w-full object-contain"
+        class="h-[25vh] md:h-[35vh] w-96 items-center lg:w-full object-contain"
         :src="`https://swiperjs.com/demos/images/nature-${img}.jpg` || no_image"
       />
     </div>

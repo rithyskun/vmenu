@@ -7,8 +7,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="dark:bg-dim-900 mx-auto">
-    <slot />
+  <div class="dark:bg-dim-800 flex flex-col min-h-screen">
+    <div class="container mx-auto max-w-[84.375rem] flex-grow">
+      <main>
+        <slot />
+      </main>
+    </div>
+
     <Snackbar />
   </div>
 </template>

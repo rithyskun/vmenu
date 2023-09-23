@@ -1,70 +1,21 @@
-<script>
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue'
-
-// Import Swiper styles
-import 'swiper/css'
-
-import 'swiper/css/effect-coverflow'
-import 'swiper/css/pagination'
-
-// import required modules
-import { EffectCoverflow, Pagination } from 'swiper/modules'
-
-export default {
-  components: {
-    Swiper,
-    SwiperSlide,
+<script setup lang="ts">
+import type { IProduct } from '~/types'
+defineProps({
+  productSpecial: {
+    type: Array as PropType<IProduct[]>,
+    required: true,
   },
-  setup() {
-    return {
-      modules: [EffectCoverflow, Pagination],
-    }
-  },
-}
+})
+
+const no_image = '/no-image.png'
 </script>
 
 <template>
-  <Swiper
-    effect="coverflow"
-    :grab-cursor="true"
-    :centered-slides="true"
-    slides-per-view="auto"
-    :coverflow-effect="{
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    }"
-    :pagination="true"
-    :modules="modules"
-    class="mySwiper"
-  >
-    <SwiperSlide v-for="img in 10" :key="img">
+  <div class="container flex-wrap p-5 gap-5 md:gap-10 flex dark:bg-dim-800 flex-col h-60 overflow-x-auto snap-x bg-white snap snap-mandatory items-center">
+    <div v-for="(item, index) in productSpecial" :key="index" class="snap-start brightness-90">
       <NuxtImg
-        :src="`https://swiperjs.com/demos/images/nature-${img}.jpg`"
+        :src="item.productImage || no_image" class="h-44 w-56 md:w-44"
       />
-    </SwiperSlide>
-  </Swiper>
+    </div>
+  </div>
 </template>
-
-<style scoped>
-.swiper {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
-
-.swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 300px;
-  height: 300px;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-}
-</style>

@@ -24,7 +24,7 @@ watch(show, () => {
   <div class="items-center relative">
     <div
       v-if="show === true && color === 'success'" id="toast-success"
-      class="bottom-5 z-40 fixed text-center md:right-5 lg:right-5 mb-4 flex w-full max-w-md items-center justify-center rounded-lg bg-white p-4 text-gray-500 shadow dark:bg-gray-700 dark:text-gray-400"
+      class="bottom-5 z-40 fixed text-center md:right-5 lg:right-5 mb-4 flex w-full max-w-md items-center justify-center rounded-lg bg-white p-5 text-gray-500 shadow dark:bg-gray-700 dark:text-gray-400"
       role="alert"
     >
       <div
