@@ -46,7 +46,7 @@ onMounted(() => {
 <template>
   <NuxtLayout name="default">
     <LayoutNavbarHome v-model="search" />
-    <div class="bg-white border-gray-200 px-2 md:px-4 py-2.5 dark:bg-dim-900">
+    <div class="bg-white border-gray-200 px-2 md:px-4 py-2.5 dark:bg-dim-800">
       <div class="grid grid-rows-3 md:grid-rows-1 grid-flow-col">
         <PageBody :categories="categories" :products="filterProducts" />
       </div>

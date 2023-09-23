@@ -3,6 +3,7 @@ import en from './locale/en.json'
 import km from './locale/km.json'
 
 export default defineNuxtConfig({
+  ssr: true,
   modules: [
     '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
@@ -56,5 +57,7 @@ export default defineNuxtConfig({
     cloudinayCloudName: process.env.CLOUDINAY_CLOUD_NAME,
     cloudinayApiKey: process.env.CLOUDINAY_API_KEY,
     cloudinayApiSecret: process.env.CLOUDINAY_API_SECRET,
+    telegramToken: process.env.TELEGRAM_TOKEN,
+    telegramChatId: process.env.TELEGRAM_CHAT_ID,
   },
 })

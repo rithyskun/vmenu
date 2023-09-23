@@ -1,16 +1,69 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { ICart } from './../types'
+import type { ICart, ICartItem } from './../types/index'
 
 export const useCartStore = defineStore('carts', {
   state: () => ({
     carts: [] as ICart[],
   }),
   actions: {
+    async submitOrder(payload: ICartItem) {
+      try {
+        const { data } = await $fetch('/api/order/create', {
+          method: 'POST',
+          body: payload,
+        })
+        useSnackbar({
+          show: true,
+          text: `Order no: ${data.id} has been created`,
+          color: 'success',
+        })
+        return data
+      }
+      catch (error: any) {
+        useSnackbar({
+          show: true,
+          text: error,
+          color: 'error',
+        })
+      }
+    },
+    async removeItem(payload: ICart) {
+      const { id } = payload
+      const item = this.carts.find((item: ICart) => item.id === id)
+
+      if (item)
+        this.carts.splice(this.carts.indexOf(item), 1)
+
+      return false
+    },
+
+    async decreaseItemQty(payload: ICart) {
+      const { id } = payload
+      const itemFound = this.carts.find((item: ICart) => item.id === id) as ICart
+
+      if (itemFound)
+        itemFound.quantity--
+
+      if (itemFound.quantity <= 0)
+        this.carts.splice(this.carts.indexOf(itemFound), 1)
+      return false
+    },
+    async increaseItemQty(payload: ICart) {
+      const { id } = payload
+      const item = this.carts.find((item: ICart) => item.id === id)
+
+      if (item)
+        item.quantity += 1
+
+      return false
+    },
     async addProductToCart(payload: ICart) {
       try {
         const { id, productImage, productName, salePrice } = payload
 
         const item = this.carts.find((item: ICart) => item.id === id)
+
+        // TODO: Check the item in stock
 
         if (!item) {
           this.carts.push({

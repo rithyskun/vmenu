@@ -36,18 +36,16 @@ const getProductByCategory = async (categoryId: string) => {
 }
 
 const specialProductItems = computed(() => {
-  const data: ISpecialProductItem[] = [{ id: 0, data: { status: true }, label: t('all') },
-    { id: 1, data: { favorite: true }, label: t('favorite') },
-    { id: 2, data: { feature: true }, label: t('feature') },
-    { id: 3, data: { promotion: true }, label: t('promotion') }]
+  const data: ISpecialProductItem[] = [
+    { id: 0, data: { status: true }, label: t('all') }]
   return data
 })
 
-const getProductSpecial = async (item: ISpecialProductItem) => {
-  selectedTab.value = Number(item.id)
+const getAvailableProduct = async () => {
+  selectedTab.value = 0
   try {
     useLoading(true)
-    await store.getProductSpecial(item.data)
+    await store.getAvailableProduct()
   }
   catch (error: any) {
     useSnackbar({
@@ -71,7 +69,7 @@ onMounted(() => {
     <div class="mb-3 mt-3 dark:text-white border-b border-gray-200 dark:border-gray-700">
       <ul id="tabCategory" class="flex flex-wrap -mb-px text-sm font-medium text-center" data-tabs-toggle="#tabCategory" role="tablist">
         <li v-for="cat in specialProductItems" :key="cat.id" class="mr-2" role="tab">
-          <button id="all-tab" :class="Number(cat.id) === selectedTab ? 'bg-blue-100 dark:bg-gray-600 dark:text-white border-transparent' : ''" class="inline-block p-4 border-transparent border-b-2 rounded-t-lg" data-tabs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="false" @click="getProductSpecial(cat)">
+          <button id="all-tab" :class="Number(cat.id) === selectedTab ? 'bg-blue-100 dark:bg-gray-600 dark:text-white border-transparent' : ''" class="inline-block p-4 border-transparent border-b-2 rounded-t-lg" data-tabs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="false" @click="getAvailableProduct">
             {{ cat.label }}
           </button>
         </li>
@@ -84,7 +82,7 @@ onMounted(() => {
       </ul>
     </div>
     <div id="categoryContent">
-      <div id="cart" class="p-4 overflow-hidden dark:text-white rounded-lg bg-gray-50 dark:bg-dim-900" role="tabpanel" aria-labelledby="profile-tab">
+      <div id="cart" class="p-4 overflow-hidden dark:text-white rounded-lg bg-gray-50 dark:bg-dim-800" role="tabpanel" aria-labelledby="profile-tab">
         <div v-if="products?.length" class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:grid-cols-6">
           <CartItem :products="products" />
         </div>
@@ -96,4 +94,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-~/types

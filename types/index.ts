@@ -99,3 +99,9 @@ export interface ICart {
   quantity: number
   salePrice: number
 }
+
+export interface ICartItem {
+  phone: string
+  address?: string
+  carts: ICart[]
+}

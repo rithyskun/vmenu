@@ -13,8 +13,8 @@ const user = useUserStore()
 </script>
 
 <template>
-  <nav class="flex flex-wrap sticky top-0 z-40 items-center justify-between max-w-screen-xl mx-auto">
-    <div class="flex items-center p-3">
+  <nav class="flex flex-wrap bg-gray-50 md:bg-white sticky top-0 z-40 items-center justify-between container mx-auto">
+    <div class="flex items-center mt-3 ml-2 md:ml-0">
       <label for="search" class="sr-only">Search</label>
       <div class="relative w-full">
         <Icon name="search" class="absolute mt-3.5 ml-3 text-gray-500" size="16" />
@@ -22,7 +22,7 @@ const user = useUserStore()
       </div>
     </div>
 
-    <div class="flex items-center md:order-2">
+    <div class="flex items-center mt-3 md:order-2">
       <div class="flex justify-center flex-row text-center items-center gap-3 md:gap-4">
         <SharedTooltip custom-style="right-5 mt-5">
           <CartBadge />

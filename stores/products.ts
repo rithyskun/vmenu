@@ -4,6 +4,7 @@ import type { IProduct } from '../types'
 export const useProductStore = defineStore('product', {
   state: () => ({
     products: [] as IProduct[],
+    productSpecial: [] as IProduct[],
   }),
   actions: {
     async getProductSpecial(params: Object = {}) {
@@ -13,7 +14,7 @@ export const useProductStore = defineStore('product', {
           method: 'GET',
           query: params,
         }) as any
-        return this.products = data
+        return this.productSpecial = data
       }
       catch (error: any) {
         useSnackbar({
