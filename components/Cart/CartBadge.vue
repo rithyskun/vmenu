@@ -98,7 +98,7 @@ const submitOrder = () => {
     </template>
     <template #body>
       <div id="cart-item" name="cart-item">
-        <div class="w-full dark:bg-gray-500 dark:border-gray-700">
+        <div class="w-full p-2 dark:bg-gray-500 dark:border-gray-700">
           <div class="flex items-center justify-between mb-2">
             <h5 class="text-sm font-bold leading-none text-gray-900 dark:text-white">
               {{ t('product') }}

@@ -62,5 +62,7 @@
   "contact": "Contact",
   "phone": "Phone Number",
   "address": "Address",
-  "optional": "Optional"
+  "optional": "Optional",
+  "order_detail": "Order Detail",
+  "close": "Close"
 }
