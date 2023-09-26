@@ -114,7 +114,8 @@
     "cloudinary",
     "antfu",
     "unhead",
-    "nuxtjs"
+    "nuxtjs",
+    "qrcode"
   ],
   "css.lint.hexColorLength": "ignore",
   "gitlens.codeLens.authors.enabled": false,

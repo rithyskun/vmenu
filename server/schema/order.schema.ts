@@ -39,6 +39,17 @@ export const orderValidation = z.object({
   qrcode: z.string({
     required_error: 'QR Code is required',
   }),
+  carts: z.object({
+    id: z.string({
+      required_error: 'Product Id is required',
+    }),
+    quantity: z.number({
+      required_error: 'QTY is required',
+    }),
+    salePrice: z.number({
+      required_error: 'Price is required',
+    }),
+  }).array(),
 })
 
 export const deleteOrderSchema = z.object({

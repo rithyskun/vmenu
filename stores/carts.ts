@@ -4,19 +4,38 @@ import type { ICart, ICartItem } from './../types/index'
 export const useCartStore = defineStore('carts', {
   state: () => ({
     carts: [] as ICart[],
+    order: [] as ICart[],
   }),
   actions: {
+    async getOrder(orderId: string) {
+      try {
+        const data = await $fetch(`/api/order/${orderId}`, {
+          method: 'GET',
+        }) as any
+        return this.order = data
+      }
+      catch (error: any) {
+        useSnackbar({
+          show: true,
+          text: error,
+          color: 'error',
+        })
+      }
+    },
     async submitOrder(payload: ICartItem) {
       try {
         const { data } = await $fetch('/api/order/create', {
           method: 'POST',
           body: payload,
         })
+        await this.getOrder(data.id)
         useSnackbar({
           show: true,
           text: `Order no: ${data.id} has been created`,
           color: 'success',
         })
+
+        await navigateTo(`/order/${data.id}`)
         return data
       }
       catch (error: any) {
@@ -105,6 +124,11 @@ export const useCartStore = defineStore('carts', {
     getGrandTotal: (state) => {
       return state.carts.reduce<number>((total, item) => {
         return total + (item.quantity * item.salePrice)
+      }, 0)
+    },
+    getTotalInOrder: (state) => {
+      return state.order.reduce<number>((total, item) => {
+        return total + (item.quantity + item.salePrice)
       }, 0)
     },
   },

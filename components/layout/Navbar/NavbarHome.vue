@@ -13,7 +13,7 @@ const user = useUserStore()
 </script>
 
 <template>
-  <nav class="flex flex-wrap bg-gray-50 md:bg-white sticky top-0 z-40 items-center justify-between container mx-auto">
+  <nav class="flex flex-wrap bg-gray-50 dark:bg-dim-800 md:bg-white sticky top-0 z-40 items-center justify-between container mx-auto">
     <div class="flex items-center mt-3 ml-2 md:ml-0">
       <label for="search" class="sr-only">Search</label>
       <div class="relative w-full">

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
 const no_image = './no-image.png'
 const active = ref(0)
 const banners = ref([
@@ -42,11 +40,6 @@ onMounted(() => {
       :class="`${active === index ? 'left-0' : 'left-full'}`"
       class="carousel-item w-full inset-0 transform px-5 transition-all duration-500 ease-in-out"
     >
-      <!-- <img
-        class="h-[25vh] md:h-[45vh] w-96 items-center lg:w-full object-contain"
-        :src="img.imageUrl || no_image"
-        alt=""
-      > -->
       <NuxtImg
         class="h-[25vh] md:h-[35vh] w-96 items-center lg:w-full object-contain"
         :src="`https://swiperjs.com/demos/images/nature-${img}.jpg` || no_image"

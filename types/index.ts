@@ -94,8 +94,8 @@ export interface colDef {
 
 export interface ICart {
   id: string
-  productName: string
-  productImage: string
+  productName?: string
+  productImage?: string
   quantity: number
   salePrice: number
 }
