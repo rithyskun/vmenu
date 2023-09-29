@@ -20,13 +20,9 @@ const closeModal = () => {
   })
 }
 
-const formTitle = computed(() => {
-  return t('cart')
-})
+const formTitle = computed(() => t('cart'))
 
-const grandTotal = computed(() => {
-  return store.getGrandTotal
-})
+const grandTotal = computed(() => store.getGrandTotal)
 
 const showModalCartItem = () => {
   if (!cart.value.length) {

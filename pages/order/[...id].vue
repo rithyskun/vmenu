@@ -11,17 +11,14 @@ const modal = ref<boolean>(false)
 
 const closeModal = () => {
   modal.value = false
+  navigateTo('/')
 }
 
 const { t } = useI18n()
 
-const formTitle = computed(() => {
-  return t('order_detail')
-})
+const formTitle = computed(() => t('order_detail'))
 
-const total = computed(() => {
-  return store.getTotalInOrder
-})
+const total = computed(() => store.getTotalInOrder)
 onMounted(() => {
   modal.value = true
 })
@@ -43,6 +40,10 @@ onMounted(() => {
             <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
               {{ t('total') }}
             </a>
+          </div>
+          <div class="w-full text-start justify-between items-center mb-5">
+            <SharedInput type="text" :label="`${t('phone')} *`" :placeholder="t('phone')" />
+            <SharedTextarea type="text" :label="t('address')" :placeholder="t('optional')" />
           </div>
           <div class="flex-1 text-start items-center justify-between mb-2">
             <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -74,11 +75,8 @@ onMounted(() => {
         <p>{{ t('grand_total') }}</p>
         <p>{{ AppHelper.formatCurrency(total) }}</p>
       </div>
-      <div class="w-full text-start justify-between items-center mb-5">
-        <SharedInput value="phone" disabled type="text" :label="`${t('phone')} *`" :placeholder="t('phone')" />
-        <SharedTextarea value="address" disabled type="text" :label="t('address')" :placeholder="t('optional')" />
-      </div>
-      <SharedButtonCustom :label="`${t('close')}`" class="w-full" />
+
+      <SharedButtonCustom :label="`${t('close')}`" class="w-full" @click="closeModal" />
     </template>
   </SharedModal>
   <!-- End Modal Cart item  -->

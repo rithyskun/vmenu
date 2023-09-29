@@ -5,7 +5,7 @@
   "workbench.editor.tabCloseButton": "right",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.list.smoothScrolling": true,
-  "workbench.productIconTheme": "icons-carbon",
+  "workbench.productIconTheme": "Default",
   "workbench.sideBar.location": "left",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.tree.expandMode": "singleClick",

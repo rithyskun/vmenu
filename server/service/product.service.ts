@@ -87,11 +87,14 @@ export const createProduct = async (payload: CreateProductModel['body']) => {
 }
 
 export const updateProduct = async (id: string, payload: UpdateProductModel['body']) => {
-  return await prisma.product.update({
+  return await prisma.product.upsert({
     where: {
-      id: String(id),
+      id,
     },
-    data: {
+    update: {
+      ...payload,
+    },
+    create: {
       ...payload,
     },
   })

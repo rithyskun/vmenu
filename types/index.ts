@@ -100,6 +100,10 @@ export interface ICart {
   salePrice: number
 }
 
+export interface IOrderResponse extends ICart {
+  product: IProduct
+}
+
 export interface ICartItem {
   phone: string
   address?: string

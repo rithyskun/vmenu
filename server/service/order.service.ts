@@ -34,7 +34,7 @@ export const createOrder = async (payload: CreateOrderModel['body']) => {
   return order
 }
 
-export const getOrder = async (id: string) => {
+export const getOrderDetail = async (id: string) => {
   return await prisma.ordersDetail.findMany({
     where: {
       orderId: id,
