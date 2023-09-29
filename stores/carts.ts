@@ -1,17 +1,15 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { ICart, ICartItem } from './../types/index'
+import type { ICart, ICartItem, IOrderResponse } from './../types/index'
 
 export const useCartStore = defineStore('carts', {
   state: () => ({
     carts: [] as ICart[],
-    order: [] as ICart[],
+    order: [] as IOrderResponse[],
   }),
   actions: {
     async getOrder(orderId: string) {
       try {
-        const data = await $fetch(`/api/order/${orderId}`, {
-          method: 'GET',
-        }) as any
+        const data = await $fetch(`/api/order/${orderId}`) as any
         return this.order = data
       }
       catch (error: any) {
@@ -24,6 +22,7 @@ export const useCartStore = defineStore('carts', {
     },
     async submitOrder(payload: ICartItem) {
       try {
+        useProgressBar(true)
         const { data } = await $fetch('/api/order/create', {
           method: 'POST',
           body: payload,
@@ -44,6 +43,9 @@ export const useCartStore = defineStore('carts', {
           text: error,
           color: 'error',
         })
+      }
+      finally {
+        useProgressBar(false)
       }
     },
     async removeItem(payload: ICart) {
